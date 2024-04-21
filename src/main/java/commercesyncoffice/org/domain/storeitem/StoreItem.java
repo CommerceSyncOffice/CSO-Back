@@ -1,6 +1,7 @@
-package commercesyncoffice.org.domain.item;
+package commercesyncoffice.org.domain.storeitem;
 
-import commercesyncoffice.org.domain.category.Category;
+import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.store.Store;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,26 +19,20 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Item {
+public class StoreItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
-    private String name;
+    @Column(nullable = false)
+    private Integer totalStock;
 
     @Column(nullable = false)
-    private Integer price;
+    private Integer stock;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
-    @Column(columnDefinition = "TEXT")
-    private String img;
-
-    @Column(nullable = false, unique = true, length = 50)
-    private String barcode;
+    @Column(nullable = false)
+    private Integer saleCnt;
 
     @CreatedDate
     @Column(updatable = false)
@@ -48,7 +43,10 @@ public class Item {
     private LocalDateTime modifiedAt;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "store_id")
+    private Store store;
 
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 }
