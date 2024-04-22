@@ -36,4 +36,12 @@ public class BrandServiceImplV1 implements BrandService {
 
         return brandRepository.findAllBrandListByAdminId(admin);
     }
+
+    @Override
+    public Brand getBrandById(Long brandId) {
+
+        return brandRepository.findById(brandId).orElseThrow(
+                () -> new IllegalArgumentException()
+        );
+    }
 }
