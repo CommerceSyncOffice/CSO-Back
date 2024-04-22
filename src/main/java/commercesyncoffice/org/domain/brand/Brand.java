@@ -45,11 +45,12 @@ public class Brand {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    public static Brand createBrand(BrandCreateDto brandCreateDto) {
+    public static Brand createBrand(BrandCreateDto brandCreateDto, Admin admin) {
 
         return Brand.builder()
                 .name(brandCreateDto.name())
                 .description(brandCreateDto.description())
+                .admin(admin)
                 .build();
     }
 }

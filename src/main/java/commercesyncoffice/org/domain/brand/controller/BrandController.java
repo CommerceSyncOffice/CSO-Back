@@ -5,6 +5,7 @@ import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,15 +21,17 @@ public class BrandController {
     @PostMapping("/brand")
     public String createBrand(@RequestBody BrandCreateDto brandCreateDto) {
 
-        brandService.createBrand(brandCreateDto);
+        Long adminId = 1L;
+        brandService.createBrand(brandCreateDto, adminId);
 
         return "redirect:/brand";
     }
 
     @ResponseBody
     @GetMapping("/brand")
-    public List<GetBrandListDto> getBrandList() {
+    public ResponseEntity<List<GetBrandListDto>> getBrandList() {
 
-        return brandService.getBrandList();
+        Long adminId = 1L;
+        return ResponseEntity.ok().body(brandService.getBrandList(adminId));
     }
 }

@@ -1,5 +1,7 @@
 package commercesyncoffice.org.domain.brand.service;
 
+import commercesyncoffice.org.domain.admin.Admin;
+import commercesyncoffice.org.domain.admin.service.AdminService;
 import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
 import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
@@ -16,18 +18,22 @@ import org.springframework.stereotype.Service;
 public class BrandServiceImplV1 implements BrandService {
 
     private final BrandRepository brandRepository;
-
+    private final AdminService adminService;
 
     @Override
     @Transactional
-    public void createBrand(BrandCreateDto brandCreateDto) {
+    public void createBrand(BrandCreateDto brandCreateDto, Long adminId) {
 
-        brandRepository.save(Brand.createBrand(brandCreateDto));
+        Admin admin = adminService.getAdminById(adminId);
+
+        brandRepository.save(Brand.createBrand(brandCreateDto, admin));
     }
 
     @Override
-    public List<GetBrandListDto> getBrandList() {
+    public List<GetBrandListDto> getBrandList(Long adminId) {
 
-        return brandRepository.findAllBrandList();
+        Admin admin = adminService.getAdminById(adminId);
+
+        return brandRepository.findAllBrandListByAdminId(admin);
     }
 }
