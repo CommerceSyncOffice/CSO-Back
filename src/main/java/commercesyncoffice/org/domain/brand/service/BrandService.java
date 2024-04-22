@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BrandService {
 
-    void createBrand(BrandCreateDto brandCreateDto);
+    void createBrand(BrandCreateDto brandCreateDto, Long adminId);
 
-    List<GetBrandListDto> getBrandList();
+    List<GetBrandListDto> getBrandList(Long adminId);
 }
