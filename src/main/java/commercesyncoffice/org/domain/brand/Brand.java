@@ -1,11 +1,14 @@
 package commercesyncoffice.org.domain.brand;
 
+import commercesyncoffice.org.domain.admin.Admin;
 import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -37,6 +40,10 @@ public class Brand {
     @LastModifiedDate
     @Column
     private LocalDateTime modifiedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
     public static Brand createBrand(BrandCreateDto brandCreateDto) {
 
