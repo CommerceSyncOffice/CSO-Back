@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.category;
 
 import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -12,12 +13,14 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,4 +48,17 @@ public class Category {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    public Long getId() {
+
+        return id;
+    }
+
+    public static Category createCategory(CategoryCreateDto categoryCreateDto, Brand brand) {
+
+        return Category.builder()
+                .name(categoryCreateDto.name())
+                .description(categoryCreateDto.description())
+                .brand(brand)
+                .build();
+    }
 }
