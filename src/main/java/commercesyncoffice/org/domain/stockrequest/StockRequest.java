@@ -1,6 +1,7 @@
-package commercesyncoffice.org.domain.store;
+package commercesyncoffice.org.domain.stockrequest;
 
-import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.store.Store;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,32 +14,28 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Store {
+public class StockRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String address;
-
-    @Column(nullable = false, length = 50)
-    private String name;
+    @Column(nullable = false)
+    private Integer requestStockCnt;
 
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    @Column
-    private LocalDateTime modifiedAt;
+    @ManyToOne
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+    @JoinColumn(name = "item_id", nullable = false)
+    private Store store;
 }
