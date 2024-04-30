@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.item.dto.ItemDetailDto(i.name, i.description, i.barcode, i.price, i.img)"
+            + " new commercesyncoffice.org.domain.item.dto.ItemDetailDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
             + " FROM Item i"
+            + " LEFT JOIN i.category c"
             + " WHERE i.id = :itemId"
     )
     Optional<ItemDetailDto> findByIdCustom(@Param("itemId") Long itemId);
