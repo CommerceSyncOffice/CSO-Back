@@ -45,7 +45,7 @@ public class Brand {
     private LocalDateTime modifiedAt;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
+    @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
 
     public static Brand createBrand(BrandCreateDto brandCreateDto, Admin admin) {

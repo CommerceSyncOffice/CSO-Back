@@ -45,7 +45,7 @@ public class Category {
     private LocalDateTime modifiedAt;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
     public Long getId() {
