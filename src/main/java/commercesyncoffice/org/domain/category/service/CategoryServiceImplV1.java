@@ -35,6 +35,14 @@ public class CategoryServiceImplV1 implements CategoryService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        return categoryRepository.findCategoryListByBrand(brand);
+        return categoryRepository.findCategoryListByBrand(brand.getId());
+    }
+
+    @Override
+    public Category getCategoryByIdAndBrandId(Long categoryId, Long brandId) {
+
+        return categoryRepository.findByIdAndBrandId(categoryId, brandId).orElseThrow(
+                () -> new IllegalArgumentException("일치하는 카테고리가 없습니다.")
+        );
     }
 }

@@ -29,13 +29,13 @@ public class StoreItem {
     private Long id;
 
     @Column(nullable = false)
-    private Integer totalStock;
-
-    @Column(nullable = false)
     private Integer stock;
 
     @Column(nullable = false)
     private Integer saleCnt;
+
+    @Column
+    private Integer recommend_stock;
 
     @CreatedDate
     @Column(updatable = false)
@@ -46,10 +46,10 @@ public class StoreItem {
     private LocalDateTime modifiedAt;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 }

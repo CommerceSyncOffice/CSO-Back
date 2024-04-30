@@ -44,4 +44,12 @@ public class BrandServiceImplV1 implements BrandService {
                 () -> new IllegalArgumentException()
         );
     }
+
+    @Override
+    public void checkBrand(Long brandId) {
+
+        if (!brandRepository.existsById(brandId)) {
+            throw new IllegalArgumentException("일치하는 브랜드가 없습니다.");
+        }
+    }
 }
