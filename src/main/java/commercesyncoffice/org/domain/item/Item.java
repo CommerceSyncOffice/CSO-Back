@@ -31,6 +31,9 @@ public class Item {
     private String name;
 
     @Column(nullable = false)
+    private Integer originPrice;
+
+    @Column(nullable = false)
     private Integer price;
 
     @Column(columnDefinition = "TEXT")
@@ -39,8 +42,14 @@ public class Item {
     @Column(columnDefinition = "TEXT")
     private String img;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, length = 20)
     private String barcode;
+
+    @Column(nullable = false)
+    private Boolean isSerial;
+
+    @Column(nullable = false)
+    private Boolean isDeleted;
 
     @CreatedDate
     @Column(updatable = false)
