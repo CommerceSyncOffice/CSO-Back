@@ -39,6 +39,6 @@ public class StockRequest {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 }

@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.item;
 
 import commercesyncoffice.org.domain.category.Category;
+import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -12,12 +13,14 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -63,4 +66,23 @@ public class Item {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    public Long getId() {
+
+        return id;
+    }
+
+    public static Item createItem(ItemCreateDto itemCreateDto, Category category) {
+
+        return Item.builder()
+                .name(itemCreateDto.name())
+                .description(itemCreateDto.description())
+                .price(itemCreateDto.price())
+                .barcode(itemCreateDto.barcode())
+                .img(itemCreateDto.img())
+                .isDeleted(false)
+                .originPrice(itemCreateDto.originPrice())
+                .isSerial(itemCreateDto.isSerial())
+                .category(category)
+                .build();
+    }
 }

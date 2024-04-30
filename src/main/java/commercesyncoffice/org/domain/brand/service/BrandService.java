@@ -12,4 +12,6 @@ public interface BrandService {
     List<GetBrandListDto> getBrandList(Long adminId);
 
     Brand getBrandById(Long brandId);
+
+    void checkBrand(Long brandId);
 }

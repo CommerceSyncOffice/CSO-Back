@@ -56,4 +56,9 @@ public class Brand {
                 .admin(admin)
                 .build();
     }
+
+    public Long getId() {
+
+        return id;
+    }
 }
