@@ -55,7 +55,7 @@ public class ItemServiceImplV1 implements ItemService {
                 () -> new IllegalArgumentException("해당 하는 이이템이 없습니다.")
         );
 
-        if (item.getIsSerial() && itemRepository.custom(itemId)) {
+        if (item.getIsSerial() && itemRepository.isHavingSerial(itemId)) {
             throw new IllegalArgumentException("이 아이템에 등록 된 시리얼 번호를 지우고 다시 시도해주세요");
         }
 
