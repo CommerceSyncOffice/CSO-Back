@@ -71,6 +71,11 @@ public class Item {
         return id;
     }
 
+    public Boolean getIsSerial() {
+
+        return isSerial;
+    }
+
     public static Item createItem(ItemCreateDto itemCreateDto, Category category) {
 
         return Item.builder()
@@ -84,5 +89,10 @@ public class Item {
                 .isSerial(itemCreateDto.isSerial())
                 .category(category)
                 .build();
+    }
+
+    public void changeIsSerial() {
+
+        isSerial = !isSerial;
     }
 }

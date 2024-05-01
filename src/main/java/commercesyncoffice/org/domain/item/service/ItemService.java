@@ -8,4 +8,6 @@ public interface ItemService {
     Long createItem(ItemCreateDto itemCreateDto, Long brandId);
 
     ItemDetailDto getItem(Long itemId);
+
+    void changeItemIsSerial(Long itemId);
 }
