@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.item;
 
+import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.category.Category;
 import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
 import jakarta.persistence.Column;
@@ -63,6 +64,10 @@ public class Item {
     private LocalDateTime modifiedAt;
 
     @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
+    private Brand brand;
+
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -71,7 +76,17 @@ public class Item {
         return id;
     }
 
-    public static Item createItem(ItemCreateDto itemCreateDto, Category category) {
+    public Boolean getIsSerial() {
+
+        return isSerial;
+    }
+
+    public Long getBrandId() {
+
+        return brand.getId();
+    }
+
+    public static Item createItem(ItemCreateDto itemCreateDto, Category category, Brand brand) {
 
         return Item.builder()
                 .name(itemCreateDto.name())
@@ -83,6 +98,17 @@ public class Item {
                 .originPrice(itemCreateDto.originPrice())
                 .isSerial(itemCreateDto.isSerial())
                 .category(category)
+                .brand(brand)
                 .build();
+    }
+
+    public void changeIsSerial() {
+
+        isSerial = !isSerial;
+    }
+
+    public void changeCategory(Category category) {
+
+        this.category = category;
     }
 }

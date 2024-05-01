@@ -18,4 +18,20 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             + " WHERE i.id = :itemId"
     )
     Optional<ItemDetailDto> findByIdCustom(@Param("itemId") Long itemId);
+
+    @Query("SELECT COUNT(i.id) > 0"
+            + " FROM Item i"
+            + " JOIN ItemSerial is ON i.id = is.item.id"
+            + " WHERE i.id = :itemId AND is.serial IS NOT NULL"
+    )
+    boolean isHavingSerial(@Param("itemId") Long itemId);
+
+    @Query("SELECT COUNT(i.id) > 0"
+            + " FROM Item i"
+            + " JOIN i.category c"
+            + " JOIN c.brand b"
+            + " WHERE i.barcode = :barcode AND b.id = :brandId"
+    )
+    boolean checkSameBarcodeInBrand(@Param("barcode") String barcode,
+            @Param("brandId") Long brandId);
 }
