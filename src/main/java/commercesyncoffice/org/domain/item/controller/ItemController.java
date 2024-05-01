@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.item.controller;
 
+import commercesyncoffice.org.domain.item.dto.ItemChangeCategoryDto;
 import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
 import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
 import commercesyncoffice.org.domain.item.service.ItemService;
@@ -21,8 +22,7 @@ public class ItemController {
     @PostMapping("/brand/{brandId}/item")
     public String createItem(
             @RequestBody ItemCreateDto itemCreateDto,
-            @PathVariable Long brandId)
-    {
+            @PathVariable Long brandId) {
 
         return "redirect:/brand/item/" + itemService.createItem(itemCreateDto, brandId);
     }
@@ -39,6 +39,17 @@ public class ItemController {
     public String changeItemIsSerial(@PathVariable Long itemId) {
 
         itemService.changeItemIsSerial(itemId);
+
+        return "redirect:/brand/item/" + itemId;
+    }
+
+    @PatchMapping("/brand/item/{itemId}/category")
+    public String changeItemCategory(
+            @RequestBody ItemChangeCategoryDto itemChangeCategoryDto,
+            @PathVariable Long itemId
+    ) {
+
+        itemService.changeItemCategory(itemId, itemChangeCategoryDto);
 
         return "redirect:/brand/item/" + itemId;
     }

@@ -1,9 +1,11 @@
 package commercesyncoffice.org.domain.item.service;
 
+import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.category.Category;
 import commercesyncoffice.org.domain.category.service.CategoryService;
 import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.item.dto.ItemChangeCategoryDto;
 import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
 import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
 import commercesyncoffice.org.domain.item.repository.ItemRepository;
@@ -22,11 +24,12 @@ public class ItemServiceImplV1 implements ItemService {
     private final CategoryService categoryService;
 
     @Override
+    @Transactional
     public Long createItem(ItemCreateDto itemCreateDto, Long brandId) {
 
         Category category = null;
 
-        brandService.checkBrand(brandId);
+        Brand brand = brandService.getBrandById(brandId);
 
         if (itemCreateDto.categoryId() != null) {
             category = categoryService.getCategoryByIdAndBrandId(itemCreateDto.categoryId(), brandId);
@@ -36,7 +39,7 @@ public class ItemServiceImplV1 implements ItemService {
             throw new IllegalArgumentException("브랜드 내에 동일한 바코드가 있습니다.");
         }
 
-        return itemRepository.save(Item.createItem(itemCreateDto, category)).getId();
+        return itemRepository.save(Item.createItem(itemCreateDto, category, brand)).getId();
     }
 
     @Override
@@ -60,5 +63,22 @@ public class ItemServiceImplV1 implements ItemService {
         }
 
         item.changeIsSerial();
+    }
+
+    @Override
+    @Transactional
+    public void changeItemCategory(Long itemId, ItemChangeCategoryDto itemChangeCategoryDto) {
+
+        Category category = null;
+
+        Item item = itemRepository.findById(itemId).orElseThrow(
+                () -> new IllegalArgumentException("해당 하는 이이템이 없습니다.")
+        );
+
+        if (itemChangeCategoryDto.categoryId() != null) {
+            category = categoryService.getCategoryByIdAndBrandId(itemChangeCategoryDto.categoryId(), item.getBrandId());
+        }
+
+        item.changeCategory(category);
     }
 }

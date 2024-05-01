@@ -53,6 +53,11 @@ public class Category {
         return id;
     }
 
+    public Brand getBrand() {
+
+        return brand;
+    }
+
     public static Category createCategory(CategoryCreateDto categoryCreateDto, Brand brand) {
 
         return Category.builder()
