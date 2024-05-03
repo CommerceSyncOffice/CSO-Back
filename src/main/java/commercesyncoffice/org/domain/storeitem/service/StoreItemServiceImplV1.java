@@ -7,6 +7,8 @@ import commercesyncoffice.org.domain.store.service.StoreService;
 import commercesyncoffice.org.domain.storeitem.StoreItem;
 import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
 import commercesyncoffice.org.domain.storeitem.repository.StoreItemRepository;
+import commercesyncoffice.org.global.exception.CustomException;
+import commercesyncoffice.org.global.exception.ExceptionCode;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class StoreItemServiceImplV1 implements StoreItemService {
         Item item = itemService.getItemById(storeItemCreateDto.itemId());
 
         if (storeItemRepository.existsByItemIdAndStoreId(item.getId(), store.getId())) {
-            throw new IllegalArgumentException("이미 등록 된 아이템입니다.");
+            throw new CustomException(ExceptionCode.ALREADY_REGISTERED_ITEM);
         }
 
         storeItemRepository.save(StoreItem.createStoreItem(store, item, storeItemCreateDto));
