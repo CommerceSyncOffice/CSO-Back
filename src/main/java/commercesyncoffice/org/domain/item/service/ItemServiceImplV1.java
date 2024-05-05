@@ -38,7 +38,7 @@ public class ItemServiceImplV1 implements ItemService {
         }
 
         if (itemRepository.checkSameBarcodeInBrand(itemCreateDto.barcode(), brandId)) {
-            throw new IllegalArgumentException("브랜드 내에 동일한 바코드가 있습니다.");
+            throw new CustomException(ExceptionCode.SAME_BARCODE_IN_BRAND);
         }
 
         return itemRepository.save(Item.createItem(itemCreateDto, category, brand)).getId();
@@ -59,7 +59,7 @@ public class ItemServiceImplV1 implements ItemService {
         Item item = getItemById(itemId);
 
         if (item.getIsSerial() && itemRepository.isHavingSerial(itemId)) {
-            throw new IllegalArgumentException("이 아이템에 등록 된 시리얼 번호를 지우고 다시 시도해주세요");
+            throw new CustomException(ExceptionCode.DELETE_SERIAL_THIS_ITEM);
         }
 
         item.changeIsSerial();

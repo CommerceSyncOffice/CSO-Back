@@ -7,6 +7,8 @@ import commercesyncoffice.org.domain.category.Category;
 import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
 import commercesyncoffice.org.domain.category.dto.GetCategoryListDto;
 import commercesyncoffice.org.domain.category.repository.CategoryRepository;
+import commercesyncoffice.org.global.exception.CustomException;
+import commercesyncoffice.org.global.exception.ExceptionCode;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +44,7 @@ public class CategoryServiceImplV1 implements CategoryService {
     public Category getCategoryByIdAndBrandId(Long categoryId, Long brandId) {
 
         return categoryRepository.findByIdAndBrandId(categoryId, brandId).orElseThrow(
-                () -> new IllegalArgumentException("일치하는 카테고리가 없습니다.")
+                () -> new CustomException(ExceptionCode.NOT_FOUND_CATEGORY)
         );
     }
 }
