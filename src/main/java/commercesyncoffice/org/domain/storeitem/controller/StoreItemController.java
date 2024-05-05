@@ -2,6 +2,7 @@ package commercesyncoffice.org.domain.storeitem.controller;
 
 import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
 import commercesyncoffice.org.domain.storeitem.service.StoreItemService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ public class StoreItemController {
     @PostMapping("/brand/store/{storeId}/storeItem")
     public String createStoreItem(
             @PathVariable Long storeId,
-            @RequestBody StoreItemCreateDto storeItemCreateDto
+            @RequestBody @Valid StoreItemCreateDto storeItemCreateDto
     ) {
 
         storeItemService.createStoreItem(storeId, storeItemCreateDto);

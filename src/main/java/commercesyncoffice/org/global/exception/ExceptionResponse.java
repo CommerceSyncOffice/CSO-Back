@@ -12,4 +12,9 @@ public class ExceptionResponse {
         this.status = exceptionCode.getHttpStatus();
         this.message = exceptionCode.getMessage();
     }
+
+    public ExceptionResponse(HttpStatus status, String message) {
+        this.status = status;
+        this.message = message;
+    }
 }
