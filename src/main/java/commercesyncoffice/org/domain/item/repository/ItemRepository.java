@@ -1,7 +1,9 @@
 package commercesyncoffice.org.domain.item.repository;
 
 import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
+import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
+import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,12 +14,12 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.item.dto.ItemDetailDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
+            + " new commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
             + " FROM Item i"
             + " LEFT JOIN i.category c"
             + " WHERE i.id = :itemId"
     )
-    Optional<ItemDetailDto> findByIdCustom(@Param("itemId") Long itemId);
+    Optional<ItemDetailBeforeMixDto> findByIdCustom(@Param("itemId") Long itemId);
 
     @Query("SELECT COUNT(i.id) > 0"
             + " FROM Item i"
@@ -34,4 +36,12 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     )
     boolean checkSameBarcodeInBrand(@Param("barcode") String barcode,
             @Param("brandId") Long brandId);
+
+    @Query("SELECT"
+            + " new commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto(is.serial)"
+            + " FROM Item i"
+            + " JOIN ItemSerial is on i.id = is.item.id"
+            + " WHERE i.id = :itemId"
+    )
+    Optional<List<ItemSerialSimpleDto>> findSerialCustom(@Param("itemId") Long itemId);
 }

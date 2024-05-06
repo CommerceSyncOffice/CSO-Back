@@ -7,11 +7,16 @@ import commercesyncoffice.org.domain.category.service.CategoryService;
 import commercesyncoffice.org.domain.item.Item;
 import commercesyncoffice.org.domain.item.dto.ItemChangeCategoryDto;
 import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
+import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
 import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
 import commercesyncoffice.org.domain.item.repository.ItemRepository;
+import commercesyncoffice.org.domain.itemserial.ItemSerial;
+import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
 import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -34,7 +39,8 @@ public class ItemServiceImplV1 implements ItemService {
         Brand brand = brandService.getBrandById(brandId);
 
         if (itemCreateDto.categoryId() != null) {
-            category = categoryService.getCategoryByIdAndBrandId(itemCreateDto.categoryId(), brandId);
+            category = categoryService.getCategoryByIdAndBrandId(itemCreateDto.categoryId(),
+                    brandId);
         }
 
         if (itemRepository.checkSameBarcodeInBrand(itemCreateDto.barcode(), brandId)) {
@@ -47,9 +53,23 @@ public class ItemServiceImplV1 implements ItemService {
     @Override
     public ItemDetailDto getItem(Long itemId) {
 
-        return itemRepository.findByIdCustom(itemId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
-        );
+        ItemDetailBeforeMixDto itemDetailBeforeMixDto = itemRepository.findByIdCustom(itemId)
+                .orElseThrow(
+                        () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
+                );
+
+        List<ItemSerialSimpleDto> serialCustom = itemRepository.findSerialCustom(itemId).orElseGet(null);
+
+        return new ItemDetailDto(
+                itemDetailBeforeMixDto.name(),
+                itemDetailBeforeMixDto.description(),
+                itemDetailBeforeMixDto.category(),
+                itemDetailBeforeMixDto.barcode(),
+                itemDetailBeforeMixDto.originPrice(),
+                itemDetailBeforeMixDto.price(),
+                itemDetailBeforeMixDto.isSerial(),
+                itemDetailBeforeMixDto.img(),
+                serialCustom);
     }
 
     @Override
@@ -74,7 +94,8 @@ public class ItemServiceImplV1 implements ItemService {
         Item item = getItemById(itemId);
 
         if (itemChangeCategoryDto.categoryId() != null) {
-            category = categoryService.getCategoryByIdAndBrandId(itemChangeCategoryDto.categoryId(), item.getBrandId());
+            category = categoryService.getCategoryByIdAndBrandId(itemChangeCategoryDto.categoryId(),
+                    item.getBrandId());
         }
 
         item.changeCategory(category);

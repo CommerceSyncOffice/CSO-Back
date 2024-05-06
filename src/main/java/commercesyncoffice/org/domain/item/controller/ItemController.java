@@ -2,6 +2,7 @@ package commercesyncoffice.org.domain.item.controller;
 
 import commercesyncoffice.org.domain.item.dto.ItemChangeCategoryDto;
 import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
+import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
 import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
 import commercesyncoffice.org.domain.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
