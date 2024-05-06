@@ -3,6 +3,7 @@ package commercesyncoffice.org.domain.store.controller;
 import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
 import commercesyncoffice.org.domain.store.dto.StoreListDto;
 import commercesyncoffice.org.domain.store.service.StoreService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping("/brand/{brandId}/store")
-    public String createStore(@PathVariable Long brandId, @RequestBody StoreCreateDto storeCreateDto) {
+    public String createStore(@PathVariable Long brandId, @Valid @RequestBody StoreCreateDto storeCreateDto) {
 
         storeService.createStore(brandId, storeCreateDto);
 

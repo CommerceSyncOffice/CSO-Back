@@ -6,6 +6,8 @@ import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
 import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import commercesyncoffice.org.domain.brand.repository.BrandRepository;
+import commercesyncoffice.org.global.exception.CustomException;
+import commercesyncoffice.org.global.exception.ExceptionCode;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +43,7 @@ public class BrandServiceImplV1 implements BrandService {
     public Brand getBrandById(Long brandId) {
 
         return brandRepository.findById(brandId).orElseThrow(
-                () -> new IllegalArgumentException()
+                () -> new CustomException(ExceptionCode.NOT_FOUND_BRAND)
         );
     }
 
@@ -49,7 +51,7 @@ public class BrandServiceImplV1 implements BrandService {
     public void checkBrand(Long brandId) {
 
         if (!brandRepository.existsById(brandId)) {
-            throw new IllegalArgumentException("일치하는 브랜드가 없습니다.");
+            throw new CustomException(ExceptionCode.NOT_FOUND_BRAND);
         }
     }
 }
