@@ -10,6 +10,7 @@ public enum ExceptionCode {
 
     ALREADY_REGISTERED_ITEM(HttpStatus.BAD_REQUEST, "이미 등록한 아이템입니다."),
     SAME_BARCODE_IN_BRAND(HttpStatus.CONFLICT, "브랜드 내에 해당 바코드가 이미 존재합니다."),
+    SAME_SERIAL_IN_ITEM(HttpStatus.CONFLICT, "아이템 내에 해당 시리얼이 이미 존재합니다."),
     DELETE_SERIAL_THIS_ITEM(HttpStatus.BAD_REQUEST, "아이템에 등록된 시리얼 번호를 지우고 다시 시도해주세요."),
 
     NOT_FOUND_BRAND(HttpStatus.BAD_REQUEST, "해당 브랜드는 존재하지 않습니다."),

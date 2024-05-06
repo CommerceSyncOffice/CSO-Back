@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.itemserial;
 
 import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.itemserial.dto.ItemSerialCreateDto;
 import commercesyncoffice.org.domain.stockreceive.StockReceive;
 import commercesyncoffice.org.domain.storeitem.StoreItem;
 import jakarta.persistence.Column;
@@ -12,9 +13,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemSerial {
@@ -37,4 +40,15 @@ public class ItemSerial {
     @ManyToOne
     @JoinColumn(name = "stock_receive_id")
     private StockReceive stockReceive;
+
+    public static ItemSerial createItemSerial(
+            ItemSerialCreateDto itemSerialCreateDto,
+            Item item
+    ) {
+
+        return ItemSerial.builder()
+                         .serial(itemSerialCreateDto.serial())
+                         .item(item)
+                         .build();
+    }
 }

@@ -3,7 +3,7 @@ package commercesyncoffice.org.domain.item.dto;
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
 import java.util.List;
 
-public record ItemDetailDto(
+public record ItemDetailBeforeMixDto(
         String name,
 
         String description,
@@ -18,9 +18,7 @@ public record ItemDetailDto(
 
         Boolean isSerial,
 
-        String img,
-
-        List<ItemSerialSimpleDto> serial
+        String img
 ) {
 
 }
