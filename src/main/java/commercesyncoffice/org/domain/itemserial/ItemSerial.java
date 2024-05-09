@@ -6,6 +6,7 @@ import commercesyncoffice.org.domain.stockreceive.StockReceive;
 import commercesyncoffice.org.domain.storeitem.StoreItem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,15 +30,15 @@ public class ItemSerial {
     @Column(nullable = false)
     private String serial;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_item_id")
     private StoreItem storeItem;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stock_receive_id")
     private StockReceive stockReceive;
 
