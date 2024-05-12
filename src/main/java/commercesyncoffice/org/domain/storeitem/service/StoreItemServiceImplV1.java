@@ -6,6 +6,7 @@ import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
 import commercesyncoffice.org.domain.storeitem.StoreItem;
 import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
+import commercesyncoffice.org.domain.storeitem.dto.StoreItemSaleDto;
 import commercesyncoffice.org.domain.storeitem.repository.StoreItemRepository;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
@@ -33,5 +34,16 @@ public class StoreItemServiceImplV1 implements StoreItemService {
         }
 
         storeItemRepository.save(StoreItem.createStoreItem(store, item, storeItemCreateDto));
+    }
+
+    @Override
+    @Transactional
+    public void saleStoreItem(Long storeItemId, StoreItemSaleDto storeItemSaleDto) {
+
+        StoreItem storeItem = storeItemRepository.findByIdWithPessimisticLock(storeItemId).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_STORE_ITEM)
+        );
+
+        storeItem.saleStock(storeItemSaleDto);
     }
 }
