@@ -17,6 +17,7 @@ import commercesyncoffice.org.domain.storeitem.StoreItem;
 import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
 import commercesyncoffice.org.domain.storeitem.dto.StoreItemSaleDto;
 import commercesyncoffice.org.domain.storeitem.repository.StoreItemRepository;
+import jakarta.transaction.Transactional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -55,7 +56,7 @@ class StoreItemStockIntegrationTest {
     @BeforeEach
     void setUp() {
 
-        Admin admin = Admin.builder().id(1L).build();
+        Admin admin = Admin.builder().build();
         adminRepository.save(admin);
         Brand brand = Brand.createBrand(new BrandCreateDto("브랜드 이름", "브랜드 설명"), admin);
         brandRepository.save(brand);
@@ -71,8 +72,13 @@ class StoreItemStockIntegrationTest {
     }
 
     @AfterEach
+    @Transactional
     void tearDown() {
         storeItemRepository.deleteAll();
+        itemRepository.deleteAll();
+        storeRepository.deleteAll();
+        brandRepository.deleteAll();
+        adminRepository.deleteAll();
     }
 
     @Test
