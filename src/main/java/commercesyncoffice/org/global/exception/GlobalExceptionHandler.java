@@ -22,11 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleValidException(MethodArgumentNotValidException e) {
 
-        List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
-        String defaultMessage = "";
-        for (ObjectError allError : allErrors) {
-            defaultMessage = allError.getDefaultMessage();
-        }
+        String defaultMessage = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
 
         ExceptionResponse exceptionResponse = new ExceptionResponse((HttpStatus) e.getStatusCode(), defaultMessage);
 

@@ -1,6 +1,8 @@
 package commercesyncoffice.org.domain.stockrequest;
 
 import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.stockreceive.dto.StockReceiveCreateDto;
+import commercesyncoffice.org.domain.stockrequest.dto.StockRequestCreateDto;
 import commercesyncoffice.org.domain.store.Store;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,11 +16,13 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -42,4 +46,13 @@ public class StockRequest {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
+
+    public static StockRequest createStockRequest(StockRequestCreateDto stockRequestCreateDto, Store store, Item item) {
+
+        return StockRequest.builder()
+                           .requestStockCnt(stockRequestCreateDto.stockRequestCnt())
+                           .store(store)
+                           .item(item)
+                           .build();
+    }
 }
