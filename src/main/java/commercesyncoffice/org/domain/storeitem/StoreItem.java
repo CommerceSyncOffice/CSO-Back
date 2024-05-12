@@ -3,6 +3,9 @@ package commercesyncoffice.org.domain.storeitem;
 import commercesyncoffice.org.domain.item.Item;
 import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
+import commercesyncoffice.org.domain.storeitem.dto.StoreItemSaleDto;
+import commercesyncoffice.org.global.exception.CustomException;
+import commercesyncoffice.org.global.exception.ExceptionCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -70,5 +73,31 @@ public class StoreItem {
                         .saleCnt(storeItemCreateDto.saleStock())
                         .recommend_stock(storeItemCreateDto.recommendStock() == 0 ? null : storeItemCreateDto.recommendStock())
                         .build();
+    }
+
+    public void saleStock(StoreItemSaleDto storeItemSaleDto) {
+
+        if (this.stock - storeItemSaleDto.saleCnt() < 0) {
+            throw new CustomException(ExceptionCode.CAN_NOT_SALE_MORE);
+        } else {
+            this.stock -= storeItemSaleDto.saleCnt();
+        }
+
+        this.saleCnt += storeItemSaleDto.saleCnt();
+    }
+
+    public Long getId() {
+
+        return this.id;
+    }
+
+    public Integer getStock() {
+
+        return this.stock;
+    }
+
+    public Integer getSaleCnt() {
+
+        return this.saleCnt;
     }
 }
