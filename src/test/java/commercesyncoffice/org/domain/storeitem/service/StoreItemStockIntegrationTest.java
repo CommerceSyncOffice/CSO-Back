@@ -1,7 +1,6 @@
 package commercesyncoffice.org.domain.storeitem.service;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import commercesyncoffice.org.domain.admin.Admin;
 import commercesyncoffice.org.domain.admin.repository.AdminRepository;
@@ -21,7 +20,6 @@ import commercesyncoffice.org.domain.storeitem.repository.StoreItemRepository;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +30,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class StoreItemServiceImplV1Test {
+class StoreItemStockIntegrationTest {
 
     @Autowired
     private StoreItemService storeItemService;
