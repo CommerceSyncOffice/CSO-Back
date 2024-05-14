@@ -5,6 +5,7 @@ import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,15 +45,21 @@ public class Brand {
     @Column
     private LocalDateTime modifiedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
 
-    public static Brand createBrand(BrandCreateDto brandCreateDto) {
+    public static Brand createBrand(BrandCreateDto brandCreateDto, Admin admin) {
 
         return Brand.builder()
                 .name(brandCreateDto.name())
                 .description(brandCreateDto.description())
+                .admin(admin)
                 .build();
+    }
+
+    public Long getId() {
+
+        return id;
     }
 }

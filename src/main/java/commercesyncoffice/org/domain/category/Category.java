@@ -1,9 +1,11 @@
 package commercesyncoffice.org.domain.category;
 
 import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,6 +22,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
@@ -41,8 +45,26 @@ public class Category {
     @Column
     private LocalDateTime modifiedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
+    public Long getId() {
+
+        return id;
+    }
+
+    public Brand getBrand() {
+
+        return brand;
+    }
+
+    public static Category createCategory(CategoryCreateDto categoryCreateDto, Brand brand) {
+
+        return Category.builder()
+                .name(categoryCreateDto.name())
+                .description(categoryCreateDto.description())
+                .brand(brand)
+                .build();
+    }
 }

@@ -2,9 +2,14 @@ package commercesyncoffice.org.domain.storeitem;
 
 import commercesyncoffice.org.domain.item.Item;
 import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
+import commercesyncoffice.org.domain.storeitem.dto.StoreItemSaleDto;
+import commercesyncoffice.org.global.exception.CustomException;
+import commercesyncoffice.org.global.exception.ExceptionCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,12 +18,14 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,11 +52,52 @@ public class StoreItem {
     @Column
     private LocalDateTime modifiedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
+
+    public static StoreItem createStoreItem(
+            Store store,
+            Item item,
+            StoreItemCreateDto storeItemCreateDto
+    ) {
+
+        return StoreItem.builder()
+                        .store(store)
+                        .item(item)
+                        .stock(storeItemCreateDto.stock())
+                        .saleCnt(storeItemCreateDto.saleStock())
+                        .recommend_stock(storeItemCreateDto.recommendStock() == 0 ? null : storeItemCreateDto.recommendStock())
+                        .build();
+    }
+
+    public void saleStock(StoreItemSaleDto storeItemSaleDto) {
+
+        if (this.stock - storeItemSaleDto.saleCnt() < 0) {
+            throw new CustomException(ExceptionCode.CAN_NOT_SALE_MORE);
+        } else {
+            this.stock -= storeItemSaleDto.saleCnt();
+        }
+
+        this.saleCnt += storeItemSaleDto.saleCnt();
+    }
+
+    public Long getId() {
+
+        return this.id;
+    }
+
+    public Integer getStock() {
+
+        return this.stock;
+    }
+
+    public Integer getSaleCnt() {
+
+        return this.saleCnt;
+    }
 }
