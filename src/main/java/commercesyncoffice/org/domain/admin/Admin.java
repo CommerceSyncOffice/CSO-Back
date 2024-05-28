@@ -46,4 +46,12 @@ public class Admin {
     @Column
     private LocalDateTime modifiedAt;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 }
