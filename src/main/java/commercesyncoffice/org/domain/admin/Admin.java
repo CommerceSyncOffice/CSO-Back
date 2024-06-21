@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.admin;
 
+import commercesyncoffice.org.domain.admin.dto.AdminSignUpDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -29,7 +30,7 @@ public class Admin {
     @Column(unique = true, length = 20, nullable = false)
     private String username;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 60, nullable = false)
     private String password;
 
     @Column(length = 60, unique = true, nullable = false)
@@ -45,5 +46,23 @@ public class Admin {
     @LastModifiedDate
     @Column
     private LocalDateTime modifiedAt;
+
+    public static Admin signup(AdminSignUpDto adminSignUpDto, String encodedPassword) {
+
+        return Admin.builder()
+                    .username(adminSignUpDto.username())
+                    .password(encodedPassword)
+                    .email(adminSignUpDto.email())
+                    .profileImg(adminSignUpDto.profileImg())
+                    .build();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
 }

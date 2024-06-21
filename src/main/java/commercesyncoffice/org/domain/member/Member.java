@@ -33,7 +33,7 @@ public class Member {
     @Column(nullable = false, length = 20)
     private String username;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 60)
     private String password;
 
     @Column(columnDefinition = "TEXT")
@@ -50,4 +50,12 @@ public class Member {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
