@@ -14,13 +14,16 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT m"
             + " FROM Member m"
             + " WHERE m.username = :username AND m.brand.id = :brandId")
-    Optional<Member> findByUsernameAndBrandId(@Param("username") String username, @Param("brandId") Long brandId);
+    Optional<Member> findByUsernameAndBrandId(@Param("username") String username,
+            @Param("brandId") Long brandId);
 
     @Query("SELECT mr.name"
             + " FROM Member m"
+            + " JOIN Brand b ON b.id = m.brand.id"
             + " JOIN MemberGroup mg ON mg.member.id = m.id"
             + " JOIN MemberGroupRole mgr ON mgr.memberGroup.id = mg.id"
             + " JOIN MemberRole mr ON mr.id = mgr.memberRole.id"
             + " WHERE m.username = :username AND m.brand.id = :brandId")
-    List<String> findMemberRolesByUsernameAndBrandId(@Param("username") String username, @Param("brandId") Long brandId);
+    List<String> findMemberRolesByUsernameAndBrandId(@Param("username") String username,
+            @Param("brandId") Long brandId);
 }
