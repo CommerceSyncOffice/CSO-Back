@@ -64,4 +64,5 @@ public class AdminServiceImplV1 implements AdminService {
 
         return jwtUtil.createToken(accountDto);
     }
+
 }

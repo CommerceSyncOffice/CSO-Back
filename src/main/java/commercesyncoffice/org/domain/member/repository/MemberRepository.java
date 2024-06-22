@@ -26,4 +26,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             + " WHERE m.username = :username AND m.brand.id = :brandId")
     List<String> findMemberRolesByUsernameAndBrandId(@Param("username") String username,
             @Param("brandId") Long brandId);
+
+    boolean existsByUsername(String username);
 }
