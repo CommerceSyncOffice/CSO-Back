@@ -11,4 +11,5 @@ public interface AdminService {
     void signup(AdminSignUpDto adminSignUpDto);
 
     String login(AdminLoginDto adminLoginDto);
+
 }

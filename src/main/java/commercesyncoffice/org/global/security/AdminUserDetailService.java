@@ -5,12 +5,12 @@ import commercesyncoffice.org.domain.admin.repository.AdminRepository;
 import commercesyncoffice.org.domain.memberrole.MemberRoleEnum;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
+import commercesyncoffice.org.global.jwt.JwtUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,10 +32,15 @@ public class AdminUserDetailService implements UserDetailsService {
         List<String> roles = new ArrayList<>();
         roles.add(MemberRoleEnum.ROLE_ADMIN.name());
 
-        return User.builder()
-                .username(admin.getUsername())
-                .password(admin.getPassword())
-                .authorities(roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()))
-                .build();
+        return new UserDetailsImpl(
+                admin.getUsername(),
+                admin.getPassword(),
+                JwtUtil.ADMIN,
+                roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()),
+                true,
+                true,
+                true,
+                true
+        );
     }
 }

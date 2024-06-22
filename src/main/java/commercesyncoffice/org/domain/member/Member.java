@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.member;
 
 import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,5 +59,15 @@ public class Member {
 
     public String getPassword() {
         return password;
+    }
+
+    public static Member createMember(MemberSignUpDto memberSignUpDto, Brand brand) {
+        UUID uuid = UUID.randomUUID();
+
+        return Member.builder()
+                .username(brand.getId() + "_" + memberSignUpDto.username())
+                .password(uuid.toString())
+                .brand(brand)
+                .build();
     }
 }

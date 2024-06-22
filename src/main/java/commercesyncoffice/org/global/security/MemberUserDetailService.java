@@ -4,11 +4,11 @@ import commercesyncoffice.org.domain.member.Member;
 import commercesyncoffice.org.domain.member.repository.MemberRepository;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
+import commercesyncoffice.org.global.jwt.JwtUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,12 +32,18 @@ public class MemberUserDetailService implements UserDetailsService {
                 () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
-        List<String> roles = memberRepository.findMemberRolesByUsernameAndBrandId(username, brandId);
+        List<String> roles = memberRepository.findMemberRolesByUsernameAndBrandId(username,
+                brandId);
 
-        return User.builder()
-                .username(member.getUsername())
-                .password(member.getPassword())
-                .authorities(roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()))
-                .build();
+        return new UserDetailsImpl(
+                member.getUsername(),
+                member.getPassword(),
+                JwtUtil.ADMIN,
+                roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()),
+                true,
+                true,
+                true,
+                true
+        );
     }
 }

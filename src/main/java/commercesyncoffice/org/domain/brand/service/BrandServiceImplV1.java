@@ -54,4 +54,9 @@ public class BrandServiceImplV1 implements BrandService {
             throw new CustomException(ExceptionCode.NOT_FOUND_BRAND);
         }
     }
+
+    @Override
+    public boolean existsByIdAndAdminUsername(Long brandId, String username) {
+        return brandRepository.existsByIdAndAdminUsername(brandId, username);
+    }
 }

@@ -51,9 +51,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
 
-        if (claims.get(JwtUtil.ROLE) == JwtUtil.MEMBER) {
+        if (claims.get(JwtUtil.ROLE).equals(JwtUtil.MEMBER)) {
             setAuthenticationForMember(username, context);
-        } else if (claims.get(JwtUtil.ROLE) == JwtUtil.ADMIN) {
+        } else if (claims.get(JwtUtil.ROLE).equals(JwtUtil.ADMIN)) {
             setAuthenticationForAdmin(username, context);
         }
     }
