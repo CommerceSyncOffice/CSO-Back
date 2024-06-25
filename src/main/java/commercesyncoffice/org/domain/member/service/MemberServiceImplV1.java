@@ -61,15 +61,7 @@ public class MemberServiceImplV1 implements MemberService {
                 () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
-        if (member.isRandomPassword()) {
-            if (!memberLoginDto.password().equals(member.getPassword())) {
-                throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
-            }
-        } else {
-            if (!passwordEncoder.matches(memberLoginDto.password(), member.getPassword())) {
-                throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
-            }
-        }
+        checkPassword(memberLoginDto.password(), member);
 
         AccountDto accountDto = new AccountDto(username, JwtUtil.MEMBER);
 
@@ -85,16 +77,21 @@ public class MemberServiceImplV1 implements MemberService {
                 () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
+        checkPassword(memberPasswordChangeDto.oldPassword(), member);
+
+        member.changePassword(passwordEncoder.encode(memberPasswordChangeDto.newPassword()));
+    }
+
+    private void checkPassword(String passwordInput, Member member) {
+
         if (member.isRandomPassword()) {
-            if (!memberPasswordChangeDto.oldPassword().equals(member.getPassword())) {
+            if (!passwordInput.equals(member.getPassword())) {
                 throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
             }
         } else {
-            if (!passwordEncoder.matches(memberPasswordChangeDto.oldPassword(), member.getPassword())) {
+            if (!passwordEncoder.matches(passwordInput, member.getPassword())) {
                 throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
             }
         }
-
-        member.changePassword(passwordEncoder.encode(memberPasswordChangeDto.newPassword()));
     }
 }
