@@ -14,7 +14,7 @@ public enum ExceptionCode {
     SAME_EMAIL_IN_ADMIN(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
 
     SAME_USERNAME_IN_MEMBER(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
-    NOT_MATCH_PASSWORD_WITH_USERNAME_IN_MEMBER(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+    NOT_MATCH_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
     ALREADY_REGISTERED_ITEM(HttpStatus.BAD_REQUEST, "이미 등록한 아이템입니다."),
     SAME_BARCODE_IN_BRAND(HttpStatus.CONFLICT, "브랜드 내에 해당 바코드가 이미 존재합니다."),

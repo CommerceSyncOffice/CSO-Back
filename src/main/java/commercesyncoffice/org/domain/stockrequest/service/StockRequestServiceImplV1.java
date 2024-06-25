@@ -7,9 +7,9 @@ import commercesyncoffice.org.domain.stockrequest.dto.StockRequestCreateDto;
 import commercesyncoffice.org.domain.stockrequest.repository.StockRequestRepository;
 import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

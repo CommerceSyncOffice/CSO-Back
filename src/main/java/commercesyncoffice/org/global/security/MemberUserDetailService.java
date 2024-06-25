@@ -26,7 +26,6 @@ public class MemberUserDetailService implements UserDetailsService {
         // username = "brandId_username"
         String[] parts = username.split("_");
         Long brandId = Long.valueOf(parts[0]);
-        username = parts[1];
 
         Member member = memberRepository.findByUsernameAndBrandId(username, brandId).orElseThrow(
                 () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
