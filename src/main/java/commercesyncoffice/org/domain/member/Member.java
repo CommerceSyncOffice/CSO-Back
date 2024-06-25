@@ -16,12 +16,14 @@ import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Getter
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -41,6 +43,9 @@ public class Member {
     @Column(columnDefinition = "TEXT")
     private String profileImg;
 
+    @Column(nullable = false)
+    private boolean isRandomPassword;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -53,21 +58,19 @@ public class Member {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public static Member createMember(MemberSignUpDto memberSignUpDto, Brand brand) {
         UUID uuid = UUID.randomUUID();
 
         return Member.builder()
                 .username(brand.getId() + "_" + memberSignUpDto.username())
                 .password(uuid.toString())
+                .isRandomPassword(true)
                 .brand(brand)
                 .build();
+    }
+
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+        this.isRandomPassword = false;
     }
 }

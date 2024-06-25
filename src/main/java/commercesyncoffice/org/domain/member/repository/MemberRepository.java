@@ -28,4 +28,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             @Param("brandId") Long brandId);
 
     boolean existsByUsername(String username);
+
+    Optional<Member> findByUsername(String username);
 }

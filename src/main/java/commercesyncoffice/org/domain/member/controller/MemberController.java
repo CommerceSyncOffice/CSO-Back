@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.member.controller;
 
 import commercesyncoffice.org.domain.member.dto.MemberLoginDto;
+import commercesyncoffice.org.domain.member.dto.MemberPasswordChangeDto;
 import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
 import commercesyncoffice.org.domain.member.service.MemberService;
 import commercesyncoffice.org.global.jwt.JwtUtil;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,5 +45,16 @@ public class MemberController {
         jwtUtil.addJWTToCookie(token, response);
 
         return ResponseEntity.ok().body("로그인~~~~~성공!\nToken\n" + token);
+    }
+
+    @PatchMapping("/brand/member/password")
+    public ResponseEntity<?> changePassword(
+            @RequestBody MemberPasswordChangeDto memberPasswordChangeDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+
+        memberService.changePassword(memberPasswordChangeDto, userDetails);
+
+        return ResponseEntity.status(200).body("비밀번호 변경 완료");
     }
 }
