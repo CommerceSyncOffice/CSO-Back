@@ -10,16 +10,14 @@ import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
 import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
 import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
 import commercesyncoffice.org.domain.item.repository.ItemRepository;
-import commercesyncoffice.org.domain.itemserial.ItemSerial;
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
-import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -104,7 +102,6 @@ public class ItemServiceImplV1 implements ItemService {
     @Override
     public Item getItemById(Long itemId) {
 
-        // TODO N+1 문제 해결
         return itemRepository.findById(itemId).orElseThrow(
                 () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
         );

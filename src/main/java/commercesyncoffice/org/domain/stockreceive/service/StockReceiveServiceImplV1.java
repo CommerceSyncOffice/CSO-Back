@@ -9,6 +9,7 @@ import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,6 +20,7 @@ public class StockReceiveServiceImplV1 implements StockReceiveService{
     private final ItemService itemService;
 
     @Override
+    @Transactional
     public void createStockReceive(StockReceiveCreateDto stockReceiveCreateDto) {
 
         Store store = storeService.getStoreById(stockReceiveCreateDto.storeId());
