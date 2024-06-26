@@ -34,3 +34,6 @@ spring:
 
 jwt:
   secret: ${JWT_SECRET_FOR_DEV}
+
+site:
+  url: https://localhost:8080/

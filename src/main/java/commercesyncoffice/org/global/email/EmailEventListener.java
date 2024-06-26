@@ -17,8 +17,10 @@ public class EmailEventListener {
     @TransactionalEventListener
     public void handleAfterCommitMemberSignUp(MemberSignUpEvent memberSignUpEvent) {
         String subject = "CSO - 가입 아이디 및 임시비밀번호";
-        String text = "가입 아이디 - " + memberSignUpEvent.username() + "\n임시 비밀번호 - " + memberSignUpEvent.password();
-        EmailDto emailDto = new EmailDto(memberSignUpEvent.email(), subject, text);
-        emailServiceImpl.sendMail(emailDto);
+
+        EmailSignUpDto emailSignUpDto = new EmailSignUpDto(memberSignUpEvent.email(), subject,
+                memberSignUpEvent.username(), memberSignUpEvent.password(),
+                memberSignUpEvent.address());
+        emailServiceImpl.sendMail(emailSignUpDto);
     }
 }
