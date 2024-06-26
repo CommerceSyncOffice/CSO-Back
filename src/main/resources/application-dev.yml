@@ -8,11 +8,32 @@ spring:
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
+
     properties:
       hibernate:
         format_sql: true
         show_sql: true
         database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
+jwt:
+  secret: ${JWT_SECRET_FOR_DEV}
+
+site:
+  url: https://localhost:8080/

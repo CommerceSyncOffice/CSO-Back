@@ -5,13 +5,12 @@ import commercesyncoffice.org.domain.item.service.ItemService;
 import commercesyncoffice.org.domain.itemserial.ItemSerial;
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialCreateDto;
 import commercesyncoffice.org.domain.itemserial.repository.ItemSerialRepository;
-import commercesyncoffice.org.domain.storeitem.service.StoreItemService;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Primary
 @Service

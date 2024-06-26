@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class StoreServiceImplV1 implements StoreService {
     private final BrandService brandService;
 
     @Override
+    @Transactional
     public Long createStore(Long brandId, StoreCreateDto storeCreateDto) {
 
         Brand brand = brandService.getBrandById(brandId);
@@ -30,6 +32,7 @@ public class StoreServiceImplV1 implements StoreService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<StoreListDto> getStoreList(Long brandId) {
 
         brandService.checkBrand(brandId);

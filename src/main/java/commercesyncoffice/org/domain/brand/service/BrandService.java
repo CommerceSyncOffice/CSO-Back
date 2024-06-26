@@ -14,4 +14,6 @@ public interface BrandService {
     Brand getBrandById(Long brandId);
 
     void checkBrand(Long brandId);
+
+    boolean existsByIdAndAdminUsername(Long brandId, String username);
 }
