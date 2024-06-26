@@ -8,12 +8,14 @@ import commercesyncoffice.org.domain.member.dto.MemberLoginDto;
 import commercesyncoffice.org.domain.member.dto.MemberPasswordChangeDto;
 import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
 import commercesyncoffice.org.domain.member.dto.MemberSignUpResponseDto;
+import commercesyncoffice.org.domain.member.event.MemberSignUpEvent;
 import commercesyncoffice.org.domain.member.repository.MemberRepository;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ public class MemberServiceImplV1 implements MemberService {
     private final BrandService brandService;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     @Transactional
@@ -47,6 +50,9 @@ public class MemberServiceImplV1 implements MemberService {
 
         Member member = Member.createMember(memberSignUpDto, brand);
         memberRepository.save(member);
+
+        applicationEventPublisher.publishEvent(new MemberSignUpEvent(memberSignUpDto.email(), memberSignUpDto.username(),
+                member.getPassword()));
 
         return new MemberSignUpResponseDto(member.getUsername(), member.getPassword());
     }

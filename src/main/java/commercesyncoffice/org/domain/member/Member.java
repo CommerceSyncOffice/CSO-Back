@@ -40,6 +40,9 @@ public class Member {
     @Column(nullable = false, length = 60)
     private String password;
 
+    @Column(nullable = false, length = 60)
+    private String email;
+
     @Column(columnDefinition = "TEXT")
     private String profileImg;
 
@@ -63,6 +66,7 @@ public class Member {
 
         return Member.builder()
                 .username(brand.getId() + "_" + memberSignUpDto.username())
+                .email(memberSignUpDto.email())
                 .password(uuid.toString())
                 .isRandomPassword(true)
                 .brand(brand)
