@@ -29,9 +29,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // Email 템플릿을 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // 쿼리 확인용 의존성
     implementation 'p6spy:p6spy:3.9.1'
     implementation 'com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.0'
 

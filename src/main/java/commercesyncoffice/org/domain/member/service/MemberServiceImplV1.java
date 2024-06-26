@@ -15,6 +15,7 @@ import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class MemberServiceImplV1 implements MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final ApplicationEventPublisher applicationEventPublisher;
+
+    @Value("${site.url}")
+    private String url;
 
     @Override
     @Transactional
@@ -51,8 +55,9 @@ public class MemberServiceImplV1 implements MemberService {
         Member member = Member.createMember(memberSignUpDto, brand);
         memberRepository.save(member);
 
+        String loginUrl = url + brandId + "/login";
         applicationEventPublisher.publishEvent(new MemberSignUpEvent(memberSignUpDto.email(), memberSignUpDto.username(),
-                member.getPassword()));
+                member.getPassword(), loginUrl));
 
         return new MemberSignUpResponseDto(member.getUsername(), member.getPassword());
     }

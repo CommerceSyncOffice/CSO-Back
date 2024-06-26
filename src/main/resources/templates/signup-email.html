@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSO - 회원가입 완료</title>
+</head>
+<body>
+<div style="width: 100%; max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; text-align: center;">
+  <div style="padding-bottom: 20px;">
+    <h1>CSO - 회원가입 완료</h1>
+  </div>
+  <div style="padding: 20px; background-color: #fff; border-radius: 8px; text-align: left;">
+    <p>안녕하세요, CSO 입니다.</p>
+    <p>회원가입이 완료되었습니다. 아래의 정보를 사용하여 로그인하십시오:</p>
+    <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin: 10px 0;">
+      <p><strong style="display: inline-block; width: 120px; text-align: right; margin-right: 10px;">아이디:</strong> <span th:text="${username}"></span></p>
+      <p><strong style="display: inline-block; width: 120px; text-align: right; margin-right: 10px;">임시 비밀번호:</strong> <span th:text="${password}"></span></p>
+    </div>
+    <div style="text-align: center; padding-top: 20px;">
+      <a th:href="${url}" style="display: inline-block; padding: 10px 20px; margin-top: 20px; font-size: 16px; color: #fff; background-color: #007bff; text-decoration: none; border-radius: 5px;">로그인 바로가기</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
