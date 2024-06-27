@@ -4,6 +4,7 @@ import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
 import commercesyncoffice.org.domain.category.dto.GetCategoryListDto;
 import commercesyncoffice.org.domain.category.service.CategoryService;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class CategoryController {
 
     @PostMapping("/brand/{brandId}/category")
     public String createCategory(
-            @RequestBody CategoryCreateDto categoryCreateDto,
+            @RequestBody @Valid CategoryCreateDto categoryCreateDto,
             @PathVariable Long brandId,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
