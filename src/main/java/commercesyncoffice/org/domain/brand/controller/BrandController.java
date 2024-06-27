@@ -4,6 +4,7 @@ import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
 import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class BrandController {
 
     @PostMapping("/brand")
     public String createBrand(
-            @RequestBody BrandCreateDto brandCreateDto,
+            @RequestBody @Valid BrandCreateDto brandCreateDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
