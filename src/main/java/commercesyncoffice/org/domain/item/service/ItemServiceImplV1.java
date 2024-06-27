@@ -16,6 +16,7 @@ import commercesyncoffice.org.global.exception.ExceptionCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +31,13 @@ public class ItemServiceImplV1 implements ItemService {
 
     @Override
     @Transactional
-    public Long createItem(ItemCreateDto itemCreateDto, Long brandId) {
+    public Long createItem(UserDetails userDetails, ItemCreateDto itemCreateDto, Long brandId) {
 
         Category category = null;
 
         Brand brand = brandService.getBrandById(brandId);
+
+        brandService.validateBrand(userDetails, brandId);
 
         if (itemCreateDto.categoryId() != null) {
             category = categoryService.getCategoryByIdAndBrandId(itemCreateDto.categoryId(),
@@ -49,7 +52,10 @@ public class ItemServiceImplV1 implements ItemService {
     }
 
     @Override
-    public ItemDetailDto getItem(Long itemId) {
+    public ItemDetailDto getItem(UserDetails userDetails, Long itemId) {
+
+        Item item = getItemWithBrandByItemId(itemId);
+        brandService.validateBrand(userDetails, item.getBrandId());
 
         ItemDetailBeforeMixDto itemDetailBeforeMixDto = itemRepository.findByIdCustom(itemId)
                 .orElseThrow(
@@ -72,9 +78,10 @@ public class ItemServiceImplV1 implements ItemService {
 
     @Override
     @Transactional
-    public void changeItemIsSerial(Long itemId) {
+    public void changeItemIsSerial(UserDetails userDetails, Long itemId) {
 
-        Item item = getItemById(itemId);
+        Item item = getItemWithBrandByItemId(itemId);
+        brandService.validateBrand(userDetails, item.getBrandId());
 
         if (item.getIsSerial() && itemRepository.isHavingSerial(itemId)) {
             throw new CustomException(ExceptionCode.DELETE_SERIAL_THIS_ITEM);
@@ -85,11 +92,12 @@ public class ItemServiceImplV1 implements ItemService {
 
     @Override
     @Transactional
-    public void changeItemCategory(Long itemId, ItemChangeCategoryDto itemChangeCategoryDto) {
+    public void changeItemCategory(UserDetails userDetails, Long itemId, ItemChangeCategoryDto itemChangeCategoryDto) {
 
         Category category = null;
 
-        Item item = getItemById(itemId);
+        Item item = getItemWithBrandByItemId(itemId);
+        brandService.validateBrand(userDetails, item.getBrandId());
 
         if (itemChangeCategoryDto.categoryId() != null) {
             category = categoryService.getCategoryByIdAndBrandId(itemChangeCategoryDto.categoryId(),
@@ -97,6 +105,13 @@ public class ItemServiceImplV1 implements ItemService {
         }
 
         item.changeCategory(category);
+    }
+
+    private Item getItemWithBrandByItemId(Long brandId) {
+
+        return itemRepository.findItemWithBrandByItemId(brandId).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
+        );
     }
 
     @Override
