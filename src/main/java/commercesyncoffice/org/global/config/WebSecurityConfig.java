@@ -1,5 +1,6 @@
 package commercesyncoffice.org.global.config;
 
+import commercesyncoffice.org.domain.memberrole.MemberRoleEnum;
 import commercesyncoffice.org.global.jwt.JwtAuthorizationFilter;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.AdminUserDetailService;
@@ -7,6 +8,7 @@ import commercesyncoffice.org.global.security.MemberUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,7 +50,8 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests((authorizeHttpRequests) ->
-                authorizeHttpRequests.anyRequest().permitAll()
+                authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/brand/*/member").hasAuthority(MemberRoleEnum.ROLE_CREATE_MEMBER.name())
+                                     .anyRequest().permitAll()
 
         );
 

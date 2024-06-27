@@ -31,7 +31,10 @@ public class AdminUserDetailService implements UserDetailsService {
                 () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
-        List<String> roles = memberRoleRepository.findAll().stream().map(role -> role.getName().name()).toList();
+        List<String> roles = memberRoleRepository.findAll()
+                                                 .stream().map(
+                                                         role -> role.getName().name()
+                                                 ).toList();
 
         return new UserDetailsImpl(
                 admin.getUsername(),

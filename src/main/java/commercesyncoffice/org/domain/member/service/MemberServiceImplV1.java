@@ -40,10 +40,6 @@ public class MemberServiceImplV1 implements MemberService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        if (!userDetails.getRole().equals(JwtUtil.ADMIN)) {
-            throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
-        }
-
         if (!brandService.existsByIdAndAdminUsername(brandId, userDetails.getUsername())) {
             throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
         }
