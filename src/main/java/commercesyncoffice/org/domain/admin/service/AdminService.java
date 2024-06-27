@@ -8,6 +8,8 @@ public interface AdminService {
 
     Admin getAdminById(Long adminId);
 
+    Admin getAdminByUsername(String username);
+
     void signup(AdminSignUpDto adminSignUpDto);
 
     String login(AdminLoginDto adminLoginDto);

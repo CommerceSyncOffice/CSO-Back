@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,17 +25,17 @@ public class BrandServiceImplV1 implements BrandService {
 
     @Override
     @Transactional
-    public void createBrand(BrandCreateDto brandCreateDto, Long adminId) {
+    public void createBrand(BrandCreateDto brandCreateDto, UserDetails userDetails) {
 
-        Admin admin = adminService.getAdminById(adminId);
+        Admin admin = adminService.getAdminByUsername(userDetails.getUsername());
 
         brandRepository.save(Brand.createBrand(brandCreateDto, admin));
     }
 
     @Override
-    public List<GetBrandListDto> getBrandList(Long adminId) {
+    public List<GetBrandListDto> getBrandList(UserDetails userDetails) {
 
-        Admin admin = adminService.getAdminById(adminId);
+        Admin admin = adminService.getAdminByUsername(userDetails.getUsername());
 
         return brandRepository.findAllBrandListByAdminId(admin);
     }

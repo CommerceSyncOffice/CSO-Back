@@ -4,12 +4,13 @@ import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
 import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface BrandService {
 
-    void createBrand(BrandCreateDto brandCreateDto, Long adminId);
+    void createBrand(BrandCreateDto brandCreateDto, UserDetails userDetails);
 
-    List<GetBrandListDto> getBrandList(Long adminId);
+    List<GetBrandListDto> getBrandList(UserDetails userDetails);
 
     Brand getBrandById(Long brandId);
 
