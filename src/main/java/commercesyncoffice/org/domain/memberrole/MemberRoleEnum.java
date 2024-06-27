@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MemberRoleEnum {
 
+    // Brand
+    ROLE_CREATE_BRAND("브랜드 생성 권한 - FOR ADMIN"),
+
     // Member
     ROLE_CREATE_MEMBER("브랜드 내 멤버 생성 권한"),
 
