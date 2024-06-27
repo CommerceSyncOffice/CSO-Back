@@ -8,12 +8,12 @@ import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import commercesyncoffice.org.domain.brand.repository.BrandRepository;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Primary
@@ -33,6 +33,7 @@ public class BrandServiceImplV1 implements BrandService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<GetBrandListDto> getBrandList(UserDetails userDetails) {
 
         Admin admin = adminService.getAdminByUsername(userDetails.getUsername());
