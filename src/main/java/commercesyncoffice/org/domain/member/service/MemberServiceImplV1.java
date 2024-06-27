@@ -101,4 +101,11 @@ public class MemberServiceImplV1 implements MemberService {
             }
         }
     }
+//
+//    @Override
+//    public Member getMemberByUsername(String username) {
+//        return memberRepository.findByUsername(username).orElseThrow(
+//                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+//        );
+//    }
 }

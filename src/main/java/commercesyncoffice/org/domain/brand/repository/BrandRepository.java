@@ -32,4 +32,22 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
             + " JOIN Admin a ON a.id = b.admin.id"
             + " WHERE b.id = :brandId AND a.username = :username")
     boolean existsByIdAndAdminUsername(@Param("brandId") Long brandId, @Param("username") String username);
+
+//    @Query("SELECT COUNT(b.id) > 0"
+//            + " FROM Brand b"
+//            + " JOIN Member m ON m.brand.id = b.id"
+//            + " WHERE b.id = :brandId AND m.id = :memberId")
+//    boolean existsByIdAndMemberId(Long brandId, Long memberId);
+
+    @Query("SELECT COUNT(b.id) > 0"
+            + " FROM Brand b"
+            + " JOIN Member m ON m.brand.id = b.id"
+            + " WHERE b.id = :brandId AND m.username = :username")
+    boolean existsByIdAndMemberUsername(Long brandId, String username);
+
+    @Query("SELECT b"
+            + " FROM Brand b"
+            + " JOIN Admin a ON b.admin.id = a.id"
+            + " WHERE b.id = :brandId")
+    Brand findByIdWithAdmin(@Param("brandId") Long brandId);
 }

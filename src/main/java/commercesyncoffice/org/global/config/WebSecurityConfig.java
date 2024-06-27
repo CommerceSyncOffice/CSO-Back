@@ -52,6 +52,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/brand/*/member").hasAuthority(MemberRoleEnum.ROLE_CREATE_MEMBER.name())
                                      .requestMatchers(HttpMethod.POST, "/brand").hasAuthority(MemberRoleEnum.ROLE_CREATE_BRAND.name())
+                                     .requestMatchers(HttpMethod.POST, "/brand/*/category").hasAuthority(MemberRoleEnum.ROLE_CREATE_CATEGORY.name())
                                      .anyRequest().permitAll()
 
         );

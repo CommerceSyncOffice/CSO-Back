@@ -6,16 +6,20 @@ import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
 @Getter
-public enum ExceptionCode {
+public enum
+ExceptionCode {
 
+    // Admin ?
     NOT_FOUND_USERNAME_IN_ADMIN(HttpStatus.BAD_REQUEST, "존재하지 않는 어드민 아이디입니다."),
     NOT_MATCH_PASSWORD_WITH_USERNAME_IN_ADMIN(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
     SAME_USERNAME_IN_ADMIN(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
     SAME_EMAIL_IN_ADMIN(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
 
+    // Member
     SAME_USERNAME_IN_MEMBER(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
     NOT_MATCH_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
+    // Item
     ALREADY_REGISTERED_ITEM(HttpStatus.BAD_REQUEST, "이미 등록한 아이템입니다."),
     SAME_BARCODE_IN_BRAND(HttpStatus.CONFLICT, "브랜드 내에 해당 바코드가 이미 존재합니다."),
     SAME_SERIAL_IN_ITEM(HttpStatus.CONFLICT, "아이템 내에 해당 시리얼이 이미 존재합니다."),
@@ -24,6 +28,7 @@ public enum ExceptionCode {
 
     // 브랜드 ?
     YOUR_NOT_ADMIN_THIS_BRAND(HttpStatus.BAD_REQUEST, "이 브랜드를 수정할 권한이 없습니다."),
+    YOUR_NOT_MEMBER_THIS_BRAND(HttpStatus.BAD_REQUEST, "이 브랜드를 수정할 권한이 없습니다."),
 
     // NOT FOUND 모음
     NOT_FOUND_BRAND(HttpStatus.BAD_REQUEST, "해당 브랜드는 존재하지 않습니다."),

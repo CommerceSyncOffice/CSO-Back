@@ -13,4 +13,6 @@ public interface MemberService {
     String login(Long brandId, MemberLoginDto memberLoginDto);
 
     void changePassword(MemberPasswordChangeDto memberPasswordChangeDto, UserDetailsImpl userDetails);
+
+//    Member getMemberByUsername(String username);
 }
