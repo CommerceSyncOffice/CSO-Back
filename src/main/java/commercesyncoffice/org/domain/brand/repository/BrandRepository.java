@@ -4,6 +4,7 @@ import commercesyncoffice.org.domain.admin.Admin;
 import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Long> {
+
+    @Query("SELECT b"
+            + " FROM Brand b"
+            + " WHERE b.id = :id")
+    Optional<Brand> findById(@Param("id") Long id);
 
     @Query("SELECT"
             + " new commercesyncoffice.org.domain.brand.dto.GetBrandListDto(b.name, b.description)"
