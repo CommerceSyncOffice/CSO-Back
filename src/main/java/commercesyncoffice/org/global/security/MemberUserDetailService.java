@@ -37,7 +37,7 @@ public class MemberUserDetailService implements UserDetailsService {
         return new UserDetailsImpl(
                 member.getUsername(),
                 member.getPassword(),
-                JwtUtil.ADMIN,
+                JwtUtil.MEMBER,
                 roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()),
                 true,
                 true,

@@ -8,6 +8,8 @@ import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
 import commercesyncoffice.org.domain.brand.repository.BrandRepository;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
+import commercesyncoffice.org.global.jwt.JwtUtil;
+import commercesyncoffice.org.global.security.UserDetailsImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -60,5 +62,40 @@ public class BrandServiceImplV1 implements BrandService {
     @Override
     public boolean existsByIdAndAdminUsername(Long brandId, String username) {
         return brandRepository.existsByIdAndAdminUsername(brandId, username);
+    }
+
+//    @Override
+//    public void validateBrand(Member member, Long brandId) {
+//
+//        if (!brandRepository.existsByIdAndMemberUsername(brandId, member.getId())) {
+//            throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
+//        }
+//    }
+//
+//    @Override
+//    public void validateBrand(Admin admin, Long brandId) {
+//
+//        Brand brand = brandRepository.findByIdWithAdmin(brandId);
+//
+//        if (!brand.getAdmin().getId().equals(admin.getId())) {
+//            throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
+//        }
+//    }
+
+    @Override
+    public void validateBrand(UserDetails userDetails, Long brandId) {
+
+        if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.ADMIN)) {
+
+            Brand brand = brandRepository.findByIdWithAdmin(brandId);
+            if (!brand.getAdmin().getUsername().equals(userDetails.getUsername())) {
+                throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
+            }
+        } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
+
+            if (!brandRepository.existsByIdAndMemberUsername(brandId, userDetails.getUsername())) {
+                throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
+            }
+        }
     }
 }
