@@ -33,9 +33,10 @@ public class BrandController {
 
     @ResponseBody
     @GetMapping("/brand")
-    public ResponseEntity<List<GetBrandListDto>> getBrandList() {
+    public ResponseEntity<List<GetBrandListDto>> getBrandList(
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
 
-        Long adminId = 1L;
-        return ResponseEntity.ok().body(brandService.getBrandList(adminId));
+        return ResponseEntity.ok().body(brandService.getBrandList(userDetails));
     }
 }

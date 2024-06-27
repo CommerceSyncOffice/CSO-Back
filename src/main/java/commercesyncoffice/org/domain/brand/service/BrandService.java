@@ -10,7 +10,7 @@ public interface BrandService {
 
     void createBrand(BrandCreateDto brandCreateDto, UserDetails userDetails);
 
-    List<GetBrandListDto> getBrandList(Long adminId);
+    List<GetBrandListDto> getBrandList(UserDetails userDetails);
 
     Brand getBrandById(Long brandId);
 

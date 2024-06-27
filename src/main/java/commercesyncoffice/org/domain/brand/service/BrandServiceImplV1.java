@@ -33,9 +33,9 @@ public class BrandServiceImplV1 implements BrandService {
     }
 
     @Override
-    public List<GetBrandListDto> getBrandList(Long adminId) {
+    public List<GetBrandListDto> getBrandList(UserDetails userDetails) {
 
-        Admin admin = adminService.getAdminById(adminId);
+        Admin admin = adminService.getAdminByUsername(userDetails.getUsername());
 
         return brandRepository.findAllBrandListByAdminId(admin);
     }
