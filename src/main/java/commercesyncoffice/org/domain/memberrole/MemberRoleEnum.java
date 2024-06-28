@@ -25,6 +25,7 @@ public enum MemberRoleEnum {
 
     // StoreItem
     ROLE_CREATE_STORE_ITEM("스토어 아이템 등록 권한"),
+    ROLE_SALE_STORE_ITEM("스토어 아이템 판매 수량 등록 권한"),
 
     // ItemSerial
     ROLE_CREATE_ITEM_SERIAL("아이템 시리얼 번호 생성 권한"),
