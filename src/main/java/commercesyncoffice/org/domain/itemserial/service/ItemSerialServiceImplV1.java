@@ -1,5 +1,7 @@
 package commercesyncoffice.org.domain.itemserial.service;
 
+import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.item.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
 import commercesyncoffice.org.domain.itemserial.ItemSerial;
@@ -9,6 +11,7 @@ import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +22,15 @@ public class ItemSerialServiceImplV1 implements ItemSerialService {
 
     private final ItemSerialRepository itemSerialRepository;
     private final ItemService itemService;
+    private final BrandService brandService;
 
     @Override
     @Transactional
-    public void createItemSerial(Long itemId, ItemSerialCreateDto itemSerialCreateDto) {
+    public void createItemSerial(UserDetails userDetails, Long itemId, ItemSerialCreateDto itemSerialCreateDto) {
 
-        Item item = itemService.getItemById(itemId);
+        Item item = itemService.getItemWithBrandByItemId(itemId);
+
+        brandService.validateBrand(userDetails, item.getBrandId());
 
         if (itemSerialRepository.checkSameSerialInItem(itemSerialCreateDto.serial(),
                 item.getId())) {

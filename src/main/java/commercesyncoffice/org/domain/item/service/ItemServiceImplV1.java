@@ -107,7 +107,8 @@ public class ItemServiceImplV1 implements ItemService {
         item.changeCategory(category);
     }
 
-    private Item getItemWithBrandByItemId(Long brandId) {
+    @Override
+    public Item getItemWithBrandByItemId(Long brandId) {
 
         return itemRepository.findItemWithBrandByItemId(brandId).orElseThrow(
                 () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
