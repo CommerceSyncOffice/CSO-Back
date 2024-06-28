@@ -17,4 +17,6 @@ public interface ItemService {
     void changeItemCategory(UserDetails userDetails, Long itemId, ItemChangeCategoryDto itemChangeCategoryDto);
 
     Item getItemById(Long itemId);
+
+    Item getItemWithBrandByItemId(Long itemId);
 }
