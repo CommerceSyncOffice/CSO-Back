@@ -11,6 +11,7 @@ import commercesyncoffice.org.global.exception.ExceptionCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +25,9 @@ public class StoreServiceImplV1 implements StoreService {
 
     @Override
     @Transactional
-    public Long createStore(Long brandId, StoreCreateDto storeCreateDto) {
+    public Long createStore(UserDetails userDetails, Long brandId, StoreCreateDto storeCreateDto) {
 
+        brandService.validateBrand(userDetails, brandId);
         Brand brand = brandService.getBrandById(brandId);
 
         return storeRepository.save(Store.createStore(brand, storeCreateDto)).getId();
@@ -33,8 +35,9 @@ public class StoreServiceImplV1 implements StoreService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<StoreListDto> getStoreList(Long brandId) {
+    public List<StoreListDto> getStoreList(UserDetails userDetails, Long brandId) {
 
+        brandService.validateBrand(userDetails, brandId);
         brandService.checkBrand(brandId);
 
         return storeRepository.findStoreListByBrand(brandId);

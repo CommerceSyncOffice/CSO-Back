@@ -4,12 +4,13 @@ import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
 import commercesyncoffice.org.domain.store.dto.StoreListDto;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface StoreService {
 
-    Long createStore(Long brandId, StoreCreateDto storeCreateDto);
+    Long createStore(UserDetails userDetails, Long brandId, StoreCreateDto storeCreateDto);
 
-    List<StoreListDto> getStoreList(Long brandId);
+    List<StoreListDto> getStoreList(UserDetails userDetails, Long brandId);
 
     Store getStoreById(Long storeId);
 }
