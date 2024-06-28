@@ -58,6 +58,7 @@ public class WebSecurityConfig {
                                      .requestMatchers(HttpMethod.PATCH, "/brand/item/*/isSerial").hasAuthority(MemberRoleEnum.ROLE_CHANGE_ITEM_DETAIL.name())
                                      .requestMatchers(HttpMethod.POST, "/brand/item/*/item_serial").hasAuthority(MemberRoleEnum.ROLE_CREATE_ITEM_SERIAL.name())
                                      .requestMatchers(HttpMethod.POST, "/brand/stock_receive").hasAuthority(MemberRoleEnum.ROLE_CREATE_STOCK_RECEIVE.name())
+                                     .requestMatchers(HttpMethod.POST, "/brand/store/*/stock_request").hasAuthority(MemberRoleEnum.ROLE_CREATE_STOCK_REQUEST.name())
                                      .anyRequest().permitAll()
 
         );
