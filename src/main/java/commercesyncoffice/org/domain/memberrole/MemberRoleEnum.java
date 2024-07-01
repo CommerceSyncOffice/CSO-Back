@@ -36,6 +36,9 @@ public enum MemberRoleEnum {
     // StockRequest
     ROLE_CREATE_STOCK_REQUEST("발주 요청 생성 권한"),
 
+    // MemberGroupMember
+    ROLE_REGISTER_MEMBER_GROUP("멤버 그룹 등록 권한"),
+
     // Test
     ROLE_TEST("하하"),
     ROLE_TEST2("하하");

@@ -108,4 +108,13 @@ public class MemberServiceImplV1 implements MemberService {
 //                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
 //        );
 //    }
+
+
+    @Override
+    public Member getMemberByMemberId(Long memberId) {
+
+        return memberRepository.findById(memberId).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+        );
+    }
 }
