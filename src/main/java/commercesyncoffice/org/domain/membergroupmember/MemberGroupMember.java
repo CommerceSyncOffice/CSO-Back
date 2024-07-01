@@ -1,8 +1,7 @@
-package commercesyncoffice.org.domain.membergroup;
+package commercesyncoffice.org.domain.membergroupmember;
 
-import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.member.Member;
-import jakarta.persistence.Column;
+import commercesyncoffice.org.domain.membergroup.MemberGroup;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,24 +16,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @Builder
+@Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberGroup {
+public class MemberGroupMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 20)
-    private String name;
-
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id", nullable = false)
-    private Brand brand;
+    @JoinColumn(name = "member_group_id", nullable = false)
+    private MemberGroup memberGroup;
 
+    public static MemberGroupMember createMemberGroupMember(Member member, MemberGroup memberGroup) {
+
+        return MemberGroupMember.builder()
+                                .member(member)
+                                .memberGroup(memberGroup)
+                                .build();
+    }
 }
