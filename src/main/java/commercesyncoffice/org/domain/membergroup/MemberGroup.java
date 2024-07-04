@@ -2,6 +2,7 @@ package commercesyncoffice.org.domain.membergroup;
 
 import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.member.Member;
+import commercesyncoffice.org.domain.membergroup.dto.request.MemberGroupCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,4 +38,12 @@ public class MemberGroup {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
+    public static MemberGroup createMemberGroup(MemberGroupCreateDto memberGroupCreateDto, Brand brand) {
+
+        return MemberGroup.builder()
+                          .name(memberGroupCreateDto.name())
+                          .description(memberGroupCreateDto.description())
+                          .brand(brand)
+                          .build();
+    }
 }
