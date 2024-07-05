@@ -2,7 +2,9 @@ package commercesyncoffice.org.domain.membergroupmember.response;
 
 import commercesyncoffice.org.domain.membergroupmember.dto.MemberGroupMemberRegisterResDto;
 import commercesyncoffice.org.global.response.CommonResponse;
+import lombok.Getter;
 
+@Getter
 public class MemberGroupMemberResponse extends CommonResponse {
 
     private final Long memberGroupMemberId;
