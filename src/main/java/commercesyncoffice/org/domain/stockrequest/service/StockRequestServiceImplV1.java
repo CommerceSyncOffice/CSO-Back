@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.stockrequest.service;
 
+import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.item.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
 import commercesyncoffice.org.domain.stockrequest.StockRequest;
@@ -8,6 +9,7 @@ import commercesyncoffice.org.domain.stockrequest.repository.StockRequestReposit
 import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +21,15 @@ public class StockRequestServiceImplV1 implements StockRequestService {
     private final StockRequestRepository stockRequestRepository;
     private final StoreService storeService;
     private final ItemService itemService;
+    private final BrandService brandService;
 
     @Override
     @Transactional
-    public void createStockRequest(StockRequestCreateDto stockRequestCreateDto, Long storeId) {
-
+    public void createStockRequest(UserDetails userDetails, StockRequestCreateDto stockRequestCreateDto, Long storeId) {
 
         Store store = storeService.getStoreById(storeId);
-        Item item = itemService.getItemById(stockRequestCreateDto.itemId());
+        Item item = itemService.getItemWithBrandByItemId(stockRequestCreateDto.itemId());
+        brandService.validateBrand(userDetails, item.getBrandId());
 
         stockRequestRepository.save(StockRequest.createStockRequest(stockRequestCreateDto, store, item));
     }

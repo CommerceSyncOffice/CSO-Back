@@ -3,6 +3,7 @@ package commercesyncoffice.org.global.security;
 import commercesyncoffice.org.domain.admin.Admin;
 import commercesyncoffice.org.domain.admin.repository.AdminRepository;
 import commercesyncoffice.org.domain.memberrole.MemberRoleEnum;
+import commercesyncoffice.org.domain.memberrole.repository.MemberRoleRepository;
 import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class AdminUserDetailService implements UserDetailsService {
 
     private final AdminRepository adminRepository;
+    private final MemberRoleRepository memberRoleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,8 +31,10 @@ public class AdminUserDetailService implements UserDetailsService {
                 () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
-        List<String> roles = new ArrayList<>();
-        roles.add(MemberRoleEnum.ROLE_ADMIN.name());
+        List<String> roles = memberRoleRepository.findAll()
+                                                 .stream().map(
+                                                         role -> role.getName().name()
+                                                 ).toList();
 
         return new UserDetailsImpl(
                 admin.getUsername(),

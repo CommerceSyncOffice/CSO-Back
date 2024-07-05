@@ -11,6 +11,7 @@ import commercesyncoffice.org.global.exception.ExceptionCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,22 +20,29 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CategoryServiceImplV1 implements CategoryService {
 
+//    private final AdminService adminService;
+//    private final MemberService memberService;
     private final CategoryRepository categoryRepository;
     private final BrandService brandService;
 
     @Override
     @Transactional
-    public Long createCategory(CategoryCreateDto categoryCreateDto, Long brandId) {
+    public Long createCategory(UserDetails userDetails, CategoryCreateDto categoryCreateDto, Long brandId) {
 
         Brand brand = brandService.getBrandById(brandId);
+
+        brandService.validateBrand(userDetails, brandId);
 
         return categoryRepository.save(Category.createCategory(categoryCreateDto, brand)).getId();
     }
 
     @Override
-    public List<GetCategoryListDto> getCategoryList(Long brandId) {
+    @Transactional(readOnly = true)
+    public List<GetCategoryListDto> getCategoryList(UserDetails userDetails, Long brandId) {
 
         Brand brand = brandService.getBrandById(brandId);
+
+        brandService.validateBrand(userDetails, brandId);
 
         return categoryRepository.findCategoryListByBrand(brand.getId());
     }

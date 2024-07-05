@@ -44,4 +44,16 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             + " WHERE i.id = :itemId"
     )
     Optional<List<ItemSerialSimpleDto>> findSerialCustom(@Param("itemId") Long itemId);
+
+//    @Query("SELECT i.brand.id"
+//            + " FROM Item i"
+//            + " JOIN Brand b ON i.brand.id = b.id"
+//            + " WHERE i.id = :itemId")
+//    Optional<Long> findBrandIdByItemId(@Param("itemId") Long itemId);
+
+    @Query("SELECT i"
+            + " FROM Item i"
+            + " JOIN Brand b ON i.brand.id = b.id"
+            + " WHERE i.id = :itemId")
+    Optional<Item> findItemWithBrandByItemId(@Param("itemId") Long itemId);
 }

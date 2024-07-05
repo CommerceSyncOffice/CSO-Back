@@ -2,6 +2,7 @@ package commercesyncoffice.org.domain.membergroup;
 
 import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.member.Member;
+import commercesyncoffice.org.domain.membergroup.dto.request.MemberGroupCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,9 +14,11 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,8 +38,12 @@ public class MemberGroup {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    public static MemberGroup createMemberGroup(MemberGroupCreateDto memberGroupCreateDto, Brand brand) {
 
+        return MemberGroup.builder()
+                          .name(memberGroupCreateDto.name())
+                          .description(memberGroupCreateDto.description())
+                          .brand(brand)
+                          .build();
+    }
 }

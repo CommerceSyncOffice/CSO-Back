@@ -1,8 +1,5 @@
 package commercesyncoffice.org.domain.item.dto;
 
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
-import java.util.List;
-
 public record ItemDetailBeforeMixDto(
         String name,
 

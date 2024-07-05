@@ -40,10 +40,6 @@ public class MemberServiceImplV1 implements MemberService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        if (!userDetails.getRole().equals(JwtUtil.ADMIN)) {
-            throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
-        }
-
         if (!brandService.existsByIdAndAdminUsername(brandId, userDetails.getUsername())) {
             throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
         }
@@ -104,5 +100,21 @@ public class MemberServiceImplV1 implements MemberService {
                 throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
             }
         }
+    }
+//
+//    @Override
+//    public Member getMemberByUsername(String username) {
+//        return memberRepository.findByUsername(username).orElseThrow(
+//                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+//        );
+//    }
+
+
+    @Override
+    public Member getMemberByMemberId(Long memberId) {
+
+        return memberRepository.findById(memberId).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+        );
     }
 }

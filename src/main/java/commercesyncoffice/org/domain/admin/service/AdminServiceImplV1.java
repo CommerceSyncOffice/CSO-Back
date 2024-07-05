@@ -24,13 +24,6 @@ public class AdminServiceImplV1 implements AdminService {
     private final JwtUtil jwtUtil;
 
     @Override
-    public Admin getAdminById(Long adminId) {
-        return adminRepository.findById(adminId).orElseThrow(
-                IllegalArgumentException::new
-        );
-    }
-
-    @Override
     @Transactional
     public void signup(AdminSignUpDto adminSignUpDto) {
 
@@ -65,4 +58,17 @@ public class AdminServiceImplV1 implements AdminService {
         return jwtUtil.createToken(accountDto);
     }
 
+    @Override
+    public Admin getAdminById(Long adminId) {
+        return adminRepository.findById(adminId).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_ADMIN)
+        );
+    }
+
+    @Override
+    public Admin getAdminByUsername(String username) {
+        return adminRepository.findByUsername(username).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_ADMIN)
+        );
+    }
 }

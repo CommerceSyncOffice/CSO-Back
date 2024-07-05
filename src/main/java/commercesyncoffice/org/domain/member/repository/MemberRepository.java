@@ -20,7 +20,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT mr.name"
             + " FROM Member m"
             + " JOIN Brand b ON b.id = m.brand.id"
-            + " JOIN MemberGroup mg ON mg.member.id = m.id"
+            + " JOIN MemberGroupMember mgm ON m.id = mgm.member.id"
+            + " JOIN MemberGroup mg ON mgm.memberGroup.id = mg.id"
             + " JOIN MemberGroupRole mgr ON mgr.memberGroup.id = mg.id"
             + " JOIN MemberRole mr ON mr.id = mgr.memberRole.id"
             + " WHERE m.username = :username AND m.brand.id = :brandId")
