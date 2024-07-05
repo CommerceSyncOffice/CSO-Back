@@ -39,6 +39,7 @@ ExceptionCode {
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당 멤버는 존재하지 않습니다."),
     NOT_FOUND_ADMIN(HttpStatus.NOT_FOUND, "해당 어드민 계정은 존재하지 않습니다."),
     NOT_FOUND_MEMBER_GROUP(HttpStatus.NOT_FOUND, "해당 그룹은 존재하지 않습니다."),
+    NOT_FOUND_MEMBER_ROLE(HttpStatus.NOT_FOUND, "해당 멤버 권한은 존재하지 않습니다."),
 
     TOKEN_INVALID(HttpStatus.FORBIDDEN, "유효하지 않은 토큰입니다."),
     TOKEN_EXPIRED(HttpStatus.FORBIDDEN, "만료된 토큰입니다."),

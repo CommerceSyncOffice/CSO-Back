@@ -42,6 +42,9 @@ public enum MemberRoleEnum {
     // MemberGroup
     ROLE_CREATE_MEMBER_GROUP("멤버 그룹 생성 권한"),
 
+    // MemberGroupRole
+    ROLE_EDIT_MEMBER_GROUP_ROLE("멤버 그룹 권한 수정 권한"),
+
     // Test
     ROLE_TEST("하하"),
     ROLE_TEST2("하하");
