@@ -32,4 +32,12 @@ public class MemberGroupRole {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_role_id", nullable = false)
     private MemberRole memberRole;
+
+    public static MemberGroupRole createMemberGroupRole(MemberGroup memberGroup, MemberRole memberRole) {
+
+        return MemberGroupRole.builder()
+                              .memberGroup(memberGroup)
+                              .memberRole(memberRole)
+                              .build();
+    }
 }

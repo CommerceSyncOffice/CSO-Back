@@ -82,6 +82,7 @@ public class BrandServiceImplV1 implements BrandService {
 //        }
 //    }
 
+    //TODO 리팩토링때 밑 두개 오버로딩이나 오버라이딩 중 택 1 리팩
     @Override
     public void validateBrand(UserDetails userDetails, Long brandId) {
 
@@ -94,6 +95,23 @@ public class BrandServiceImplV1 implements BrandService {
         } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
 
             if (!brandRepository.existsByIdAndMemberUsername(brandId, userDetails.getUsername())) {
+                throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
+            }
+        }
+    }
+
+    @Override
+    public void validateBrandByMemberGroupId(UserDetails userDetails, Long memberGroupId) {
+
+        if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.ADMIN)) {
+
+            Brand brand = brandRepository.findByMemberGroupIdWithAdmin(memberGroupId);
+            if (!brand.getAdmin().getUsername().equals(userDetails.getUsername())) {
+                throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
+            }
+        } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
+
+            if (!brandRepository.existsByMemberGroupIdAndMemberUsername(memberGroupId, userDetails.getUsername())) {
                 throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
             }
         }

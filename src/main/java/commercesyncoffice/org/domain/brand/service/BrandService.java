@@ -23,4 +23,6 @@ public interface BrandService {
 //    void validateBrand(Admin admin, Long brandId);
 
     void validateBrand(UserDetails userDetails, Long brandId);
+
+    void validateBrandByMemberGroupId(UserDetails userDetails, Long brandId);
 }

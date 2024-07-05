@@ -63,7 +63,8 @@ public class WebSecurityConfig {
                                      .requestMatchers(HttpMethod.POST, "/brand/store/*/storeItem").hasAuthority(MemberRoleEnum.ROLE_CREATE_STORE_ITEM.name())
                                      .requestMatchers(HttpMethod.PATCH, "/brand/store/storeItem/*/stock_sell").hasAuthority(MemberRoleEnum.ROLE_SALE_STORE_ITEM.name())
                                      .requestMatchers(HttpMethod.POST, "/brand/*/member_group/register").hasAuthority(MemberRoleEnum.ROLE_REGISTER_MEMBER_GROUP.name())
-                        .requestMatchers(HttpMethod.POST, "brand/*/member_group").hasAuthority(MemberRoleEnum.ROLE_CREATE_MEMBER_GROUP.name())
+                                     .requestMatchers(HttpMethod.POST, "/brand/*/member_group").hasAuthority(MemberRoleEnum.ROLE_CREATE_MEMBER_GROUP.name())
+                                     .requestMatchers(HttpMethod.POST, "/brand/member_group/*/role").hasAuthority(MemberRoleEnum.ROLE_EDIT_MEMBER_GROUP_ROLE.name())
                                      .anyRequest().permitAll()
 
         );
