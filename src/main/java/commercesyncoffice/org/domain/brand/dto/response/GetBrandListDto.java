@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.brand.dto;
+package commercesyncoffice.org.domain.brand.dto.response;
 
 public record GetBrandListDto (
     String name,
