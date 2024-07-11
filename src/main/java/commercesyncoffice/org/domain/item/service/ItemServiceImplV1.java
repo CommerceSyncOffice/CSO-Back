@@ -1,18 +1,18 @@
 package commercesyncoffice.org.domain.item.service;
 
-import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.brand.model.Brand;
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.category.Category;
+import commercesyncoffice.org.domain.category.model.Category;
 import commercesyncoffice.org.domain.category.service.CategoryService;
-import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.item.dto.ItemChangeCategoryDto;
-import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
-import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
-import commercesyncoffice.org.domain.item.dto.ItemDetailDto;
+import commercesyncoffice.org.domain.item.exception.ItemException;
+import commercesyncoffice.org.domain.item.message.ExceptionCode;
+import commercesyncoffice.org.domain.item.model.Item;
+import commercesyncoffice.org.domain.item.dto.request.ItemChangeCategoryDto;
+import commercesyncoffice.org.domain.item.dto.request.ItemCreateDto;
+import commercesyncoffice.org.domain.item.dto.response.ItemDetailBeforeMixDto;
+import commercesyncoffice.org.domain.item.dto.response.ItemDetailDto;
 import commercesyncoffice.org.domain.item.repository.ItemRepository;
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
+import commercesyncoffice.org.domain.itemserial.dto.response.ItemSerialSimpleDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -45,7 +45,7 @@ public class ItemServiceImplV1 implements ItemService {
         }
 
         if (itemRepository.checkSameBarcodeInBrand(itemCreateDto.barcode(), brandId)) {
-            throw new CustomException(ExceptionCode.SAME_BARCODE_IN_BRAND);
+            throw new ItemException(ExceptionCode.SAME_BARCODE_IN_BRAND);
         }
 
         return itemRepository.save(Item.createItem(itemCreateDto, category, brand)).getId();
@@ -59,7 +59,7 @@ public class ItemServiceImplV1 implements ItemService {
 
         ItemDetailBeforeMixDto itemDetailBeforeMixDto = itemRepository.findByIdCustom(itemId)
                 .orElseThrow(
-                        () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
+                        () -> new ItemException(ExceptionCode.NOT_FOUND_ITEM)
                 );
 
         List<ItemSerialSimpleDto> serialCustom = itemRepository.findSerialCustom(itemId).orElseGet(null);
@@ -84,7 +84,7 @@ public class ItemServiceImplV1 implements ItemService {
         brandService.validateBrand(userDetails, item.getBrandId());
 
         if (item.getIsSerial() && itemRepository.isHavingSerial(itemId)) {
-            throw new CustomException(ExceptionCode.DELETE_SERIAL_THIS_ITEM);
+            throw new ItemException(ExceptionCode.DELETE_SERIAL_THIS_ITEM);
         }
 
         item.changeIsSerial();
@@ -111,7 +111,7 @@ public class ItemServiceImplV1 implements ItemService {
     public Item getItemWithBrandByItemId(Long brandId) {
 
         return itemRepository.findItemWithBrandByItemId(brandId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
+                () -> new ItemException(ExceptionCode.NOT_FOUND_ITEM)
         );
     }
 
@@ -119,7 +119,7 @@ public class ItemServiceImplV1 implements ItemService {
     public Item getItemById(Long itemId) {
 
         return itemRepository.findById(itemId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_ITEM)
+                () -> new ItemException(ExceptionCode.NOT_FOUND_ITEM)
         );
     }
 }

@@ -1,13 +1,13 @@
 package commercesyncoffice.org.domain.membergrouprole.service;
 
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.membergroup.MemberGroup;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
 import commercesyncoffice.org.domain.membergroup.service.MemberGroupService;
-import commercesyncoffice.org.domain.membergrouprole.MemberGroupRole;
+import commercesyncoffice.org.domain.membergrouprole.model.MemberGroupRole;
 import commercesyncoffice.org.domain.membergrouprole.dto.request.MemberGroupRoleEditReqDto;
 import commercesyncoffice.org.domain.membergrouprole.dto.response.MemberGroupRoleResDto;
 import commercesyncoffice.org.domain.membergrouprole.repository.MemberGroupRoleRepository;
-import commercesyncoffice.org.domain.memberrole.MemberRole;
+import commercesyncoffice.org.domain.memberrole.model.MemberRole;
 import commercesyncoffice.org.domain.memberrole.service.MemberRoleService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class MemberGroupRoleServiceImplV1 implements MemberGroupRoleService {
 
         for (Long memberRoleId : memberGroupRoleEditReqDto.memberRoleId()) {
             MemberRole memberRole = memberRoleService.getMemberRoleByMemberRoleId(memberRoleId);
-            memberGroupRoleRepository.save(MemberGroupRole.createMemberGroupRole(memberGroup, memberRole));
+            memberGroupRoleRepository.save(MemberGroupRole.of(memberGroup, memberRole));
         }
 
         List<String> memberRoles = memberGroupRoleRepository.findAllMemberRoleByMemberGroupId(

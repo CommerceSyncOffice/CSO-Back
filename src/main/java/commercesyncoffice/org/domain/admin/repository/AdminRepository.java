@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.admin.repository;
 
-import commercesyncoffice.org.domain.admin.Admin;
+import commercesyncoffice.org.domain.admin.model.Admin;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

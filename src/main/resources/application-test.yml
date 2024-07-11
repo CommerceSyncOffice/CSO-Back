@@ -19,7 +19,20 @@ spring:
 
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
 decorator:
   datasource:
     p6spy:
       enable-logging: true
+site:
+  url: https://localhost:8080/

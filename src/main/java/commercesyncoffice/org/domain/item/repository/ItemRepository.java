@@ -1,8 +1,8 @@
 package commercesyncoffice.org.domain.item.repository;
 
-import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
+import commercesyncoffice.org.domain.item.model.Item;
+import commercesyncoffice.org.domain.item.dto.response.ItemDetailBeforeMixDto;
+import commercesyncoffice.org.domain.itemserial.dto.response.ItemSerialSimpleDto;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
+            + " new commercesyncoffice.org.domain.item.dto.response.ItemDetailBeforeMixDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
             + " FROM Item i"
             + " LEFT JOIN i.category c"
             + " WHERE i.id = :itemId"
@@ -38,7 +38,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             @Param("brandId") Long brandId);
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto(is.serial)"
+            + " new commercesyncoffice.org.domain.itemserial.dto.response.ItemSerialSimpleDto(is.serial)"
             + " FROM Item i"
             + " JOIN ItemSerial is on i.id = is.item.id"
             + " WHERE i.id = :itemId"

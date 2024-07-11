@@ -1,13 +1,13 @@
 package commercesyncoffice.org.domain.category.service;
 
-import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.brand.model.Brand;
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.category.Category;
-import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
-import commercesyncoffice.org.domain.category.dto.GetCategoryListDto;
+import commercesyncoffice.org.domain.category.exception.CategoryException;
+import commercesyncoffice.org.domain.category.message.ExceptionCode;
+import commercesyncoffice.org.domain.category.model.Category;
+import commercesyncoffice.org.domain.category.dto.request.CategoryCreateDto;
+import commercesyncoffice.org.domain.category.dto.response.GetCategoryListDto;
 import commercesyncoffice.org.domain.category.repository.CategoryRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -20,20 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CategoryServiceImplV1 implements CategoryService {
 
-//    private final AdminService adminService;
-//    private final MemberService memberService;
     private final CategoryRepository categoryRepository;
     private final BrandService brandService;
 
     @Override
     @Transactional
-    public Long createCategory(UserDetails userDetails, CategoryCreateDto categoryCreateDto, Long brandId) {
+    public void createCategory(UserDetails userDetails, CategoryCreateDto categoryCreateDto, Long brandId) {
 
         Brand brand = brandService.getBrandById(brandId);
 
         brandService.validateBrand(userDetails, brandId);
 
-        return categoryRepository.save(Category.createCategory(categoryCreateDto, brand)).getId();
+        categoryRepository.save(Category.of(categoryCreateDto, brand)).getId();
     }
 
     @Override
@@ -51,7 +49,7 @@ public class CategoryServiceImplV1 implements CategoryService {
     public Category getCategoryByIdAndBrandId(Long categoryId, Long brandId) {
 
         return categoryRepository.findByIdAndBrandId(categoryId, brandId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_CATEGORY)
+                () -> new CategoryException(ExceptionCode.NOT_FOUND_CATEGORY)
         );
     }
 }

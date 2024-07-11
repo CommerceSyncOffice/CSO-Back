@@ -1,12 +1,12 @@
 package commercesyncoffice.org.global.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.NonNull;
 
-@Getter
-@AllArgsConstructor
-public class CommonResponse {
+public interface CommonResponse {
 
-    private String message;
+    boolean success();
+
+    @NonNull
+    String message();
 
 }

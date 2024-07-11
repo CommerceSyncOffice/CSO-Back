@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.member.repository;
 
-import commercesyncoffice.org.domain.member.Member;
+import commercesyncoffice.org.domain.member.model.Member;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

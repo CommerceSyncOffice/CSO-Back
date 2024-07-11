@@ -1,10 +1,10 @@
 package commercesyncoffice.org.domain.member.service;
 
-import commercesyncoffice.org.domain.member.Member;
-import commercesyncoffice.org.domain.member.dto.MemberLoginDto;
-import commercesyncoffice.org.domain.member.dto.MemberPasswordChangeDto;
-import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
-import commercesyncoffice.org.domain.member.dto.MemberSignUpResponseDto;
+import commercesyncoffice.org.domain.member.model.Member;
+import commercesyncoffice.org.domain.member.dto.request.MemberLoginDto;
+import commercesyncoffice.org.domain.member.dto.request.MemberPasswordChangeDto;
+import commercesyncoffice.org.domain.member.dto.request.MemberSignUpDto;
+import commercesyncoffice.org.domain.member.dto.response.MemberSignUpResponseDto;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 
 public interface MemberService {

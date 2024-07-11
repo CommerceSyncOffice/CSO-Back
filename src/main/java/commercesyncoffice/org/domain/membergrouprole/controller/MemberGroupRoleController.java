@@ -1,13 +1,12 @@
 package commercesyncoffice.org.domain.membergrouprole.controller;
 
+import static commercesyncoffice.org.domain.membergrouprole.message.SuccessMessage.SUCCESS_EDIT_MEMBER_GROUP_ROLE;
+import static commercesyncoffice.org.global.response.SuccessResponse.success;
+
 import commercesyncoffice.org.domain.membergrouprole.dto.request.MemberGroupRoleEditReqDto;
-import commercesyncoffice.org.domain.membergrouprole.dto.response.MemberGroupRoleResDto;
-import commercesyncoffice.org.domain.membergrouprole.dto.response.MemberGroupRoleResEnum;
-import commercesyncoffice.org.domain.membergrouprole.response.MemberGroupRoleRes;
 import commercesyncoffice.org.domain.membergrouprole.service.MemberGroupRoleService;
 import commercesyncoffice.org.global.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,10 +28,7 @@ public class MemberGroupRoleController {
             @AuthenticationPrincipal UserDetails userDetails
     ) {
 
-        MemberGroupRoleResDto memberGroupRoleResDto = memberGroupRoleService.editMemberGroupRole(
-                userDetails, memberGroupId, memberGroupRoleEditReqDto);
-        MemberGroupRoleRes memberGroupRoleRes = new MemberGroupRoleRes(MemberGroupRoleResEnum.MEMBER_GROUP_ROLE_CREATED.getMessage(), memberGroupRoleResDto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(memberGroupRoleRes);
+        return ResponseEntity.status(SUCCESS_EDIT_MEMBER_GROUP_ROLE.getHttpStatus())
+                             .body(success(SUCCESS_EDIT_MEMBER_GROUP_ROLE.getMessage(), memberGroupRoleService.editMemberGroupRole(userDetails, memberGroupId, memberGroupRoleEditReqDto)));
     }
 }
