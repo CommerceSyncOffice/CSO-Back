@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.membergroupmember.dto;
+package commercesyncoffice.org.domain.membergroupmember.dto.response;
 
 public record MemberGroupMemberRegisterResDto(
         Long memberGroupMemberId,

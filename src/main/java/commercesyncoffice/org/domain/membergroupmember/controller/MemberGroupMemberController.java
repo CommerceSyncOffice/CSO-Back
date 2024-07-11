@@ -1,14 +1,13 @@
 package commercesyncoffice.org.domain.membergroupmember.controller;
 
-import commercesyncoffice.org.domain.membergroupmember.dto.MemberGroupMemberRegisterReqDto;
-import commercesyncoffice.org.domain.membergroupmember.dto.MemberGroupMemberRegisterResDto;
-import commercesyncoffice.org.domain.membergroupmember.response.MemberGroupMemberResponse;
-import commercesyncoffice.org.domain.membergroupmember.response.MemberGroupMemberResponseEnum;
+import static commercesyncoffice.org.domain.membergroupmember.message.SuccessMessage.SUCCESS_RESISTER_MEMBER;
+import static commercesyncoffice.org.global.response.SuccessResponse.success;
+
+import commercesyncoffice.org.domain.membergroupmember.dto.request.MemberGroupMemberRegisterReqDto;
 import commercesyncoffice.org.domain.membergroupmember.service.MemberGroupMemberService;
 import commercesyncoffice.org.global.response.CommonResponse;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,11 +29,7 @@ public class MemberGroupMemberController {
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
-        MemberGroupMemberRegisterResDto responseDto = memberGroupMemberService.registerMember(
-                userDetails, brandId,
-                memberGroupMemberRegisterReqDto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MemberGroupMemberResponse(
-                MemberGroupMemberResponseEnum.RESISTER_MEMBER, responseDto));
+        return ResponseEntity.status(SUCCESS_RESISTER_MEMBER.getHttpStatus())
+                .body(success(SUCCESS_RESISTER_MEMBER.getMessage(), memberGroupMemberService.registerMember(userDetails, brandId, memberGroupMemberRegisterReqDto)));
     }
 }

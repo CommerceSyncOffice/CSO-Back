@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.membergroupmember;
+package commercesyncoffice.org.domain.membergroupmember.model;
 
 import commercesyncoffice.org.domain.member.model.Member;
 import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
@@ -34,7 +34,7 @@ public class MemberGroupMember {
     @JoinColumn(name = "member_group_id", nullable = false)
     private MemberGroup memberGroup;
 
-    public static MemberGroupMember createMemberGroupMember(Member member, MemberGroup memberGroup) {
+    public static MemberGroupMember of(Member member, MemberGroup memberGroup) {
 
         return MemberGroupMember.builder()
                                 .member(member)
