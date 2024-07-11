@@ -1,6 +1,6 @@
-package commercesyncoffice.org.domain.store;
+package commercesyncoffice.org.domain.store.model;
 
-import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.brand.model.Brand;
 import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,7 +54,7 @@ public class Store {
         return this.id;
     }
 
-    public static Store createStore(Brand brand, StoreCreateDto storeCreateDto) {
+    public static Store of(Brand brand, StoreCreateDto storeCreateDto) {
 
         return Store.builder()
                     .brand(brand)

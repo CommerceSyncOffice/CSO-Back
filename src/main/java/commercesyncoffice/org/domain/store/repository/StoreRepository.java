@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.store.repository;
 
-import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.dto.StoreListDto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

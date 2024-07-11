@@ -1,13 +1,13 @@
 package commercesyncoffice.org.domain.store.service;
 
-import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.brand.model.Brand;
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.store.exception.StoreException;
+import commercesyncoffice.org.domain.store.message.ExceptionCode;
+import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
 import commercesyncoffice.org.domain.store.dto.StoreListDto;
 import commercesyncoffice.org.domain.store.repository.StoreRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -30,7 +30,7 @@ public class StoreServiceImplV1 implements StoreService {
         brandService.validateBrand(userDetails, brandId);
         Brand brand = brandService.getBrandById(brandId);
 
-        return storeRepository.save(Store.createStore(brand, storeCreateDto)).getId();
+        return storeRepository.save(Store.of(brand, storeCreateDto)).getId();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class StoreServiceImplV1 implements StoreService {
     public Store getStoreById(Long storeId) {
 
         return storeRepository.findById(storeId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_STORE)
+                () -> new StoreException(ExceptionCode.NOT_FOUND_STORE)
         );
     }
 }

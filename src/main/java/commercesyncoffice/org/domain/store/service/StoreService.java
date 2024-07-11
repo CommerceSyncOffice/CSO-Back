@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.store.service;
 
-import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
 import commercesyncoffice.org.domain.store.dto.StoreListDto;
 import java.util.List;
