@@ -12,7 +12,7 @@ import commercesyncoffice.org.domain.item.dto.request.ItemCreateDto;
 import commercesyncoffice.org.domain.item.dto.response.ItemDetailBeforeMixDto;
 import commercesyncoffice.org.domain.item.dto.response.ItemDetailDto;
 import commercesyncoffice.org.domain.item.repository.ItemRepository;
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
+import commercesyncoffice.org.domain.itemserial.dto.response.ItemSerialSimpleDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;

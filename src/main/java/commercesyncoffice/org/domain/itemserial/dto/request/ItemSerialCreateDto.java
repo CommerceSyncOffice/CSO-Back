@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.itemserial.dto;
+package commercesyncoffice.org.domain.itemserial.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

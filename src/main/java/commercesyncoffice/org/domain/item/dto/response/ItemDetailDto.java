@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.item.dto.response;
 
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
+import commercesyncoffice.org.domain.itemserial.dto.response.ItemSerialSimpleDto;
 import java.util.List;
 
 public record ItemDetailDto(

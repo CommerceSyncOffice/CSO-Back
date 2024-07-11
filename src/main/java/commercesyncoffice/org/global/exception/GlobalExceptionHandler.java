@@ -3,6 +3,8 @@ package commercesyncoffice.org.global.exception;
 import commercesyncoffice.org.domain.admin.exception.AdminException;
 import commercesyncoffice.org.domain.brand.exception.BrandException;
 import commercesyncoffice.org.domain.category.exception.CategoryException;
+import commercesyncoffice.org.domain.item.exception.ItemException;
+import commercesyncoffice.org.domain.itemserial.exception.ItemSerialException;
 import commercesyncoffice.org.global.response.ExceptionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,6 +32,22 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CategoryException.class)
     public ResponseEntity<ExceptionResponse> handleCustomException(CategoryException e) {
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
+
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ItemException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(ItemException e) {
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
+
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ItemSerialException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(ItemSerialException e) {
 
         ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
 

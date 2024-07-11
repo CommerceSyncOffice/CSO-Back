@@ -1,7 +1,7 @@
-package commercesyncoffice.org.domain.itemserial;
+package commercesyncoffice.org.domain.itemserial.model;
 
 import commercesyncoffice.org.domain.item.model.Item;
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialCreateDto;
+import commercesyncoffice.org.domain.itemserial.dto.request.ItemSerialCreateDto;
 import commercesyncoffice.org.domain.stockreceive.StockReceive;
 import commercesyncoffice.org.domain.storeitem.StoreItem;
 import jakarta.persistence.Column;

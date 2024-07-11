@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.itemserial.repository;
 
-import commercesyncoffice.org.domain.itemserial.ItemSerial;
+import commercesyncoffice.org.domain.itemserial.model.ItemSerial;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

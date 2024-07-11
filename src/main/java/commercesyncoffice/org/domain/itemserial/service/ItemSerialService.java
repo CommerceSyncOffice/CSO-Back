@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.itemserial.service;
 
-import commercesyncoffice.org.domain.itemserial.dto.ItemSerialCreateDto;
+import commercesyncoffice.org.domain.itemserial.dto.request.ItemSerialCreateDto;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface ItemSerialService {
