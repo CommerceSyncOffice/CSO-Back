@@ -8,14 +8,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ExceptionCode {
 
-    // Member
-    SAME_USERNAME_IN_MEMBER(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
-    NOT_MATCH_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
-
     // NOT FOUND 모음
     NOT_FOUND_STORE(HttpStatus.NOT_FOUND, "해당 스토어는 존재하지 않습니다."),
     NOT_FOUND_STORE_ITEM(HttpStatus.NOT_FOUND, "해당 스토어 아이템은 존재하지 않습니다."),
-    NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당 멤버는 존재하지 않습니다."),
     NOT_FOUND_MEMBER_GROUP(HttpStatus.NOT_FOUND, "해당 그룹은 존재하지 않습니다."),
     NOT_FOUND_MEMBER_ROLE(HttpStatus.NOT_FOUND, "해당 멤버 권한은 존재하지 않습니다."),
 

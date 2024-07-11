@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.member.dto;
+package commercesyncoffice.org.domain.member.dto.request;
 
 public record MemberLoginDto(
         String username,

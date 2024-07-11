@@ -1,10 +1,16 @@
 package commercesyncoffice.org.domain.member.controller;
 
-import commercesyncoffice.org.domain.member.dto.MemberLoginDto;
-import commercesyncoffice.org.domain.member.dto.MemberPasswordChangeDto;
-import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
+import static commercesyncoffice.org.domain.member.message.SuccessMessage.*;
+import static commercesyncoffice.org.global.response.SuccessResponse.*;
+
+import commercesyncoffice.org.domain.member.dto.request.MemberLoginDto;
+import commercesyncoffice.org.domain.member.dto.request.MemberPasswordChangeDto;
+import commercesyncoffice.org.domain.member.dto.request.MemberSignUpDto;
+import commercesyncoffice.org.domain.member.message.SuccessMessage;
 import commercesyncoffice.org.domain.member.service.MemberService;
 import commercesyncoffice.org.global.jwt.JwtUtil;
+import commercesyncoffice.org.global.response.CommonResponse;
+import commercesyncoffice.org.global.response.SuccessResponse;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +30,18 @@ public class MemberController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/brand/{brandId}/member")
-    public ResponseEntity<?> signUp(
+    public ResponseEntity<? extends CommonResponse> signUp(
             @PathVariable Long brandId,
             @RequestBody MemberSignUpDto memberSignUpDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
-        return ResponseEntity.status(201).body(memberService.signUp(brandId, memberSignUpDto, userDetails));
+        return ResponseEntity.status(SUCCESS_SIGN_UP.getHttpStatus())
+                             .body(success(SUCCESS_SIGN_UP.getMessage(), memberService.signUp(brandId, memberSignUpDto, userDetails)));
     }
 
     @PostMapping("/brand/{brandId}/login")
-    public ResponseEntity<?> login(
+    public ResponseEntity<? extends CommonResponse> login(
             @PathVariable Long brandId,
             @RequestBody MemberLoginDto memberLoginDto,
             HttpServletResponse response
@@ -43,17 +50,19 @@ public class MemberController {
         String token = memberService.login(brandId, memberLoginDto);
         jwtUtil.addJWTToCookie(token, response);
 
-        return ResponseEntity.ok().body("로그인~~~~~성공!\nToken\n" + token);
+        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus())
+                             .body(success(SuccessMessage.SUCCESS_LOGIN.getMessage()));
     }
 
     @PatchMapping("/brand/member/password")
-    public ResponseEntity<?> changePassword(
+    public ResponseEntity<? extends CommonResponse> changePassword(
             @RequestBody MemberPasswordChangeDto memberPasswordChangeDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
         memberService.changePassword(memberPasswordChangeDto, userDetails);
 
-        return ResponseEntity.status(200).body("비밀번호 변경 완료");
+        return ResponseEntity.status(SUCCESS_CHANGE_PASSWORD.getHttpStatus())
+                             .body(success(SuccessMessage.SUCCESS_CHANGE_PASSWORD.getMessage()));
     }
 }

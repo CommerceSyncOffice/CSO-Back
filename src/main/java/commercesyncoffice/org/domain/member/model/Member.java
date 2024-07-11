@@ -1,7 +1,7 @@
-package commercesyncoffice.org.domain.member;
+package commercesyncoffice.org.domain.member.model;
 
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
+import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.member.dto.request.MemberSignUpDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
