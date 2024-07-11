@@ -1,7 +1,7 @@
 package commercesyncoffice.org.domain.store.model;
 
 import commercesyncoffice.org.domain.brand.model.Brand;
-import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
+import commercesyncoffice.org.domain.store.dto.request.StoreCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

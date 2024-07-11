@@ -19,7 +19,7 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
     Optional<Brand> findById(@Param("id") Long id);
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.brand.dto.GetBrandListDto(b.name, b.description)"
+            + " new commercesyncoffice.org.domain.brand.dto.response.GetBrandListDto(b.name, b.description)"
             + " FROM"
             + " Brand b"
             + " WHERE"

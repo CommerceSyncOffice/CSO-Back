@@ -1,11 +1,11 @@
 package commercesyncoffice.org.domain.storeitem;
 
-import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.store.Store;
-import commercesyncoffice.org.domain.storeitem.dto.StoreItemCreateDto;
-import commercesyncoffice.org.domain.storeitem.dto.StoreItemSaleDto;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
+import commercesyncoffice.org.domain.item.model.Item;
+import commercesyncoffice.org.domain.store.model.Store;
+import commercesyncoffice.org.domain.storeitem.dto.request.StoreItemCreateDto;
+import commercesyncoffice.org.domain.storeitem.dto.request.StoreItemSaleDto;
+import commercesyncoffice.org.domain.storeitem.exception.StoreItemException;
+import commercesyncoffice.org.domain.storeitem.message.ExceptionCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -60,7 +60,7 @@ public class StoreItem {
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
-    public static StoreItem createStoreItem(
+    public static StoreItem of(
             Store store,
             Item item,
             StoreItemCreateDto storeItemCreateDto
@@ -78,7 +78,7 @@ public class StoreItem {
     public void saleStock(StoreItemSaleDto storeItemSaleDto) {
 
         if (this.stock - storeItemSaleDto.saleCnt() < 0) {
-            throw new CustomException(ExceptionCode.CAN_NOT_SALE_MORE);
+            throw new StoreItemException(ExceptionCode.CAN_NOT_SALE_MORE);
         } else {
             this.stock -= storeItemSaleDto.saleCnt();
         }

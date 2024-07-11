@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
+            + " new commercesyncoffice.org.domain.item.dto.response.ItemDetailBeforeMixDto(i.name, i.description, c.name, i.barcode, i.originPrice, i.price, i.isSerial, i.img)"
             + " FROM Item i"
             + " LEFT JOIN i.category c"
             + " WHERE i.id = :itemId"
@@ -38,7 +38,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             @Param("brandId") Long brandId);
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto(is.serial)"
+            + " new commercesyncoffice.org.domain.itemserial.dto.response.ItemSerialSimpleDto(is.serial)"
             + " FROM Item i"
             + " JOIN ItemSerial is on i.id = is.item.id"
             + " WHERE i.id = :itemId"

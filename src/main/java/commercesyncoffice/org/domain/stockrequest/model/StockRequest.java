@@ -2,7 +2,7 @@ package commercesyncoffice.org.domain.stockrequest.model;
 
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.stockrequest.dto.StockRequestCreateDto;
-import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.store.model.Store;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

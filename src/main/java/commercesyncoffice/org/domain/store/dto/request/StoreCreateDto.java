@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.store.dto;
+package commercesyncoffice.org.domain.store.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

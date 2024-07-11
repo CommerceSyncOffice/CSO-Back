@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("SELECT"
-            + " new commercesyncoffice.org.domain.category.dto.GetCategoryListDto(c.name)"
+            + " new commercesyncoffice.org.domain.category.dto.response.GetCategoryListDto(c.name)"
             + " from Category c"
             + " where c.brand.id = :brandId"
     )

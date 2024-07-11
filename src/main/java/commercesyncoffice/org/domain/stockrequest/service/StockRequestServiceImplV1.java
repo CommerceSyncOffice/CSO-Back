@@ -6,7 +6,7 @@ import commercesyncoffice.org.domain.item.service.ItemService;
 import commercesyncoffice.org.domain.stockrequest.model.StockRequest;
 import commercesyncoffice.org.domain.stockrequest.dto.StockRequestCreateDto;
 import commercesyncoffice.org.domain.stockrequest.repository.StockRequestRepository;
-import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
