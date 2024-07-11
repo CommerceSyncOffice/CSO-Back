@@ -2,7 +2,7 @@ package commercesyncoffice.org.domain.membergrouprole.model;
 
 
 import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
-import commercesyncoffice.org.domain.memberrole.MemberRole;
+import commercesyncoffice.org.domain.memberrole.model.MemberRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

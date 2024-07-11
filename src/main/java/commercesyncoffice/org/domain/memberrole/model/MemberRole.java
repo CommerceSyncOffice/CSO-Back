@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.memberrole;
+package commercesyncoffice.org.domain.memberrole.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

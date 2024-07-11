@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.memberrole;
+package commercesyncoffice.org.domain.memberrole.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

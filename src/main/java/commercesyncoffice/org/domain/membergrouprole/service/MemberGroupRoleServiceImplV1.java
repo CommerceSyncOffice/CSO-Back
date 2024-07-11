@@ -7,7 +7,7 @@ import commercesyncoffice.org.domain.membergrouprole.model.MemberGroupRole;
 import commercesyncoffice.org.domain.membergrouprole.dto.request.MemberGroupRoleEditReqDto;
 import commercesyncoffice.org.domain.membergrouprole.dto.response.MemberGroupRoleResDto;
 import commercesyncoffice.org.domain.membergrouprole.repository.MemberGroupRoleRepository;
-import commercesyncoffice.org.domain.memberrole.MemberRole;
+import commercesyncoffice.org.domain.memberrole.model.MemberRole;
 import commercesyncoffice.org.domain.memberrole.service.MemberRoleService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

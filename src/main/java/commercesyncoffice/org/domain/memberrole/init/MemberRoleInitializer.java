@@ -1,5 +1,7 @@
-package commercesyncoffice.org.domain.memberrole;
+package commercesyncoffice.org.domain.memberrole.init;
 
+import commercesyncoffice.org.domain.memberrole.model.MemberRole;
+import commercesyncoffice.org.domain.memberrole.model.MemberRoleEnum;
 import commercesyncoffice.org.domain.memberrole.repository.MemberRoleRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
