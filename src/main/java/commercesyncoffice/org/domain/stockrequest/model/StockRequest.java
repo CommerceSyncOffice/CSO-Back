@@ -1,7 +1,6 @@
-package commercesyncoffice.org.domain.stockrequest;
+package commercesyncoffice.org.domain.stockrequest.model;
 
-import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.stockreceive.dto.StockReceiveCreateDto;
+import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.stockrequest.dto.StockRequestCreateDto;
 import commercesyncoffice.org.domain.store.Store;
 import jakarta.persistence.Column;
@@ -47,7 +46,7 @@ public class StockRequest {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    public static StockRequest createStockRequest(StockRequestCreateDto stockRequestCreateDto, Store store, Item item) {
+    public static StockRequest of(StockRequestCreateDto stockRequestCreateDto, Store store, Item item) {
 
         return StockRequest.builder()
                            .requestStockCnt(stockRequestCreateDto.stockRequestCnt())

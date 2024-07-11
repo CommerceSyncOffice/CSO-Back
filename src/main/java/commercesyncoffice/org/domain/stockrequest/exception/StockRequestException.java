@@ -1,15 +1,15 @@
-package commercesyncoffice.org.domain.stockreceive.exception;
+package commercesyncoffice.org.domain.stockrequest.exception;
 
-import commercesyncoffice.org.domain.stockreceive.message.ExceptionCode;
+import commercesyncoffice.org.domain.stockrequest.message.ExceptionCode;
 import commercesyncoffice.org.global.exception.ExceptionCodeProvider;
 import org.springframework.http.HttpStatus;
 
-public class StockReceiveException extends RuntimeException implements ExceptionCodeProvider {
+public class StockRequestException extends RuntimeException implements ExceptionCodeProvider {
 
     private final ExceptionCode exceptionCode;
 
-    public StockReceiveException(ExceptionCode exceptionCode) {
-        super("[StockReceive Exception] : " + exceptionCode.getMessage());
+    public StockRequestException(ExceptionCode exceptionCode) {
+        super("[StockRequest Exception] : " + exceptionCode.getMessage());
         this.exceptionCode = exceptionCode;
     }
 
