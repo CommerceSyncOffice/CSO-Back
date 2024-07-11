@@ -1,7 +1,7 @@
-package commercesyncoffice.org.domain.category;
+package commercesyncoffice.org.domain.category.model;
 
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
+import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.category.dto.request.CategoryCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -59,7 +59,7 @@ public class Category {
         return brand;
     }
 
-    public static Category createCategory(CategoryCreateDto categoryCreateDto, Brand brand) {
+    public static Category of(CategoryCreateDto categoryCreateDto, Brand brand) {
 
         return Category.builder()
                 .name(categoryCreateDto.name())

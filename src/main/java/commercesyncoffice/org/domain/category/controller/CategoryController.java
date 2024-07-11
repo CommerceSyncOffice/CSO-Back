@@ -1,28 +1,31 @@
 package commercesyncoffice.org.domain.category.controller;
 
-import commercesyncoffice.org.domain.category.dto.CategoryCreateDto;
-import commercesyncoffice.org.domain.category.dto.GetCategoryListDto;
+import static commercesyncoffice.org.domain.category.message.SuccessMessage.SUCCESS_CREATE_CATEGORY;
+import static commercesyncoffice.org.domain.category.message.SuccessMessage.SUCCESS_GET_CATEGORY_LIST;
+import static commercesyncoffice.org.global.response.SuccessResponse.success;
+
+import commercesyncoffice.org.domain.category.dto.request.CategoryCreateDto;
 import commercesyncoffice.org.domain.category.service.CategoryService;
+import commercesyncoffice.org.global.response.CommonResponse;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @PostMapping("/brand/{brandId}/category")
-    public String createCategory(
+    public ResponseEntity<? extends CommonResponse> createCategory(
             @RequestBody @Valid CategoryCreateDto categoryCreateDto,
             @PathVariable Long brandId,
             @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -30,15 +33,17 @@ public class CategoryController {
 
         categoryService.createCategory(userDetails, categoryCreateDto, brandId);
 
-        return "redirect:/brand/" + brandId + "/category";
+        return ResponseEntity.status(SUCCESS_CREATE_CATEGORY.getHttpStatus())
+                             .body(success(SUCCESS_CREATE_CATEGORY.getMessage()));
     }
 
     @GetMapping("/brand/{brandId}/category")
-    public ResponseEntity<List<GetCategoryListDto>> getCategory(
+    public ResponseEntity<? extends CommonResponse> getCategory(
             @PathVariable Long brandId,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
-        return ResponseEntity.ok().body(categoryService.getCategoryList(userDetails, brandId));
+        return ResponseEntity.status(SUCCESS_GET_CATEGORY_LIST.getHttpStatus())
+                             .body(success(SUCCESS_GET_CATEGORY_LIST.getMessage(), categoryService.getCategoryList(userDetails, brandId)));
     }
 }

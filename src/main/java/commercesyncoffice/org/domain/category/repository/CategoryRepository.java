@@ -1,8 +1,7 @@
 package commercesyncoffice.org.domain.category.repository;
 
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.category.Category;
-import commercesyncoffice.org.domain.category.dto.GetCategoryListDto;
+import commercesyncoffice.org.domain.category.model.Category;
+import commercesyncoffice.org.domain.category.dto.response.GetCategoryListDto;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
