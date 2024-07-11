@@ -1,9 +1,11 @@
 package commercesyncoffice.org.domain.admin.message;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
+@RequiredArgsConstructor
 public enum ExceptionCode {
 
     NOT_FOUND_USERNAME_IN_ADMIN(HttpStatus.BAD_REQUEST, "존재하지 않는 어드민 아이디입니다."),
@@ -14,9 +16,4 @@ public enum ExceptionCode {
 
     private final HttpStatus httpStatus;
     private final String message;
-
-    ExceptionCode(HttpStatus httpStatus, String message) {
-        this.httpStatus = httpStatus;
-        this.message = message;
-    }
 }

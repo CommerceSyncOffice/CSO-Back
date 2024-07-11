@@ -1,7 +1,7 @@
 package commercesyncoffice.org.domain.admin.service;
 
 import commercesyncoffice.org.domain.account.AccountDto;
-import commercesyncoffice.org.domain.admin.Admin;
+import commercesyncoffice.org.domain.admin.model.Admin;
 import commercesyncoffice.org.domain.admin.dto.request.AdminLoginDto;
 import commercesyncoffice.org.domain.admin.dto.request.AdminSignUpDto;
 import commercesyncoffice.org.domain.admin.exception.AdminException;

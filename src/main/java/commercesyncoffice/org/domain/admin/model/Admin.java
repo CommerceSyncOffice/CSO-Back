@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.admin;
+package commercesyncoffice.org.domain.admin.model;
 
 import commercesyncoffice.org.domain.admin.dto.request.AdminSignUpDto;
 import jakarta.persistence.Column;
