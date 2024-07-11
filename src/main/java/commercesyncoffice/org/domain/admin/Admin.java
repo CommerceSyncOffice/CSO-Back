@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.admin;
 
-import commercesyncoffice.org.domain.admin.dto.AdminSignUpDto;
+import commercesyncoffice.org.domain.admin.dto.request.AdminSignUpDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
