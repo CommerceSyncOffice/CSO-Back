@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.item.dto;
+package commercesyncoffice.org.domain.item.dto.response;
 
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
 import java.util.List;

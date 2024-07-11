@@ -12,15 +12,7 @@ public enum ExceptionCode {
     SAME_USERNAME_IN_MEMBER(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다."),
     NOT_MATCH_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
 
-    // Item
-    ALREADY_REGISTERED_ITEM(HttpStatus.BAD_REQUEST, "이미 등록한 아이템입니다."),
-    SAME_BARCODE_IN_BRAND(HttpStatus.CONFLICT, "브랜드 내에 해당 바코드가 이미 존재합니다."),
-    SAME_SERIAL_IN_ITEM(HttpStatus.CONFLICT, "아이템 내에 해당 시리얼이 이미 존재합니다."),
-    CAN_NOT_SALE_MORE(HttpStatus.CONFLICT, "재고가 부족합니다. 더 이상 팔 수 없습니다."),
-    DELETE_SERIAL_THIS_ITEM(HttpStatus.BAD_REQUEST, "아이템에 등록된 시리얼 번호를 지우고 다시 시도해주세요."),
-
     // NOT FOUND 모음
-    NOT_FOUND_ITEM(HttpStatus.NOT_FOUND, "해당 아이템은 존재하지 않습니다."),
     NOT_FOUND_STORE(HttpStatus.NOT_FOUND, "해당 스토어는 존재하지 않습니다."),
     NOT_FOUND_STORE_ITEM(HttpStatus.NOT_FOUND, "해당 스토어 아이템은 존재하지 않습니다."),
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당 멤버는 존재하지 않습니다."),

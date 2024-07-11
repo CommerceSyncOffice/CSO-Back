@@ -1,8 +1,8 @@
-package commercesyncoffice.org.domain.item;
+package commercesyncoffice.org.domain.item.model;
 
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.category.Category;
-import commercesyncoffice.org.domain.item.dto.ItemCreateDto;
+import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.category.model.Category;
+import commercesyncoffice.org.domain.item.dto.request.ItemCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

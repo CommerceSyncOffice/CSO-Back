@@ -1,13 +1,11 @@
 package commercesyncoffice.org.domain.itemserial.service;
 
-import commercesyncoffice.org.domain.brand.Brand;
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
 import commercesyncoffice.org.domain.itemserial.ItemSerial;
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialCreateDto;
 import commercesyncoffice.org.domain.itemserial.repository.ItemSerialRepository;
-import commercesyncoffice.org.global.exception.CustomException;
 import commercesyncoffice.org.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;

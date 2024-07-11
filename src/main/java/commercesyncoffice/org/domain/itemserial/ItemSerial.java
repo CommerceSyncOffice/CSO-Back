@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.itemserial;
 
-import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialCreateDto;
 import commercesyncoffice.org.domain.stockreceive.StockReceive;
 import commercesyncoffice.org.domain.storeitem.StoreItem;

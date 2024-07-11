@@ -1,7 +1,7 @@
 package commercesyncoffice.org.domain.item.repository;
 
-import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.item.dto.ItemDetailBeforeMixDto;
+import commercesyncoffice.org.domain.item.model.Item;
+import commercesyncoffice.org.domain.item.dto.response.ItemDetailBeforeMixDto;
 import commercesyncoffice.org.domain.itemserial.dto.ItemSerialSimpleDto;
 import java.util.List;
 import java.util.Optional;

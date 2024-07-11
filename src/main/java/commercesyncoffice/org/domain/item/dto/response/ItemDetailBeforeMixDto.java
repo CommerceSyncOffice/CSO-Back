@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.item.dto;
+package commercesyncoffice.org.domain.item.dto.response;
 
 public record ItemDetailBeforeMixDto(
         String name,

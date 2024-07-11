@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.item.dto;
+package commercesyncoffice.org.domain.item.dto.request;
 
 
 public record ItemCreateDto(
