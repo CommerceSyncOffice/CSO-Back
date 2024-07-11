@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.membergroup.service;
 
-import commercesyncoffice.org.domain.membergroup.MemberGroup;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
 import commercesyncoffice.org.domain.membergroup.dto.request.MemberGroupCreateDto;
 import commercesyncoffice.org.domain.membergroup.dto.response.MemberGroupResDto;
 import commercesyncoffice.org.global.security.UserDetailsImpl;

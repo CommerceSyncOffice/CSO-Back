@@ -1,9 +1,9 @@
 package commercesyncoffice.org.domain.membergroupmember.service;
 
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.member.Member;
+import commercesyncoffice.org.domain.member.model.Member;
 import commercesyncoffice.org.domain.member.service.MemberService;
-import commercesyncoffice.org.domain.membergroup.MemberGroup;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
 import commercesyncoffice.org.domain.membergroup.service.MemberGroupService;
 import commercesyncoffice.org.domain.membergroupmember.MemberGroupMember;
 import commercesyncoffice.org.domain.membergroupmember.dto.MemberGroupMemberRegisterReqDto;

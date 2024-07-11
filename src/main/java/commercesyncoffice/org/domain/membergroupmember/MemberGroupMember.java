@@ -1,7 +1,7 @@
 package commercesyncoffice.org.domain.membergroupmember;
 
-import commercesyncoffice.org.domain.member.Member;
-import commercesyncoffice.org.domain.membergroup.MemberGroup;
+import commercesyncoffice.org.domain.member.model.Member;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
