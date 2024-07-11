@@ -1,6 +1,6 @@
 package commercesyncoffice.org.global.config;
 
-import commercesyncoffice.org.domain.memberrole.MemberRoleEnum;
+import commercesyncoffice.org.domain.memberrole.model.MemberRoleEnum;
 import commercesyncoffice.org.global.jwt.JwtAuthorizationFilter;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.AdminUserDetailService;

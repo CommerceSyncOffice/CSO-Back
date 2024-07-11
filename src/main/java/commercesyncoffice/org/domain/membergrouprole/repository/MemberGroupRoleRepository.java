@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.membergrouprole.repository;
 
-import commercesyncoffice.org.domain.membergrouprole.MemberGroupRole;
+import commercesyncoffice.org.domain.membergrouprole.model.MemberGroupRole;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

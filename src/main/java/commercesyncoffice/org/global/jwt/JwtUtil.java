@@ -1,11 +1,8 @@
 package commercesyncoffice.org.global.jwt;
 
 import commercesyncoffice.org.domain.account.AccountDto;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -79,7 +75,7 @@ public class JwtUtil {
             cookie.setPath("/");
             res.addCookie(cookie);
         } catch (UnsupportedEncodingException e) {
-            throw new CustomException(ExceptionCode.URL_ENCODING_EXCEPTION);
+            throw new JwtException(ExceptionCode.URL_ENCODING_EXCEPTION);
         }
     }
 
@@ -88,13 +84,13 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException | SignatureException e) {
-            throw new CustomException(ExceptionCode.TOKEN_INVALID);
+            throw new JwtException(ExceptionCode.TOKEN_INVALID);
         } catch (ExpiredJwtException e) {
-            throw new CustomException(ExceptionCode.TOKEN_EXPIRED);
+            throw new JwtException(ExceptionCode.TOKEN_EXPIRED);
         } catch (UnsupportedJwtException e) {
-            throw new CustomException(ExceptionCode.TOKEN_UNSUPPORTED);
+            throw new JwtException(ExceptionCode.TOKEN_UNSUPPORTED);
         } catch (IllegalArgumentException e) {
-            throw new CustomException(ExceptionCode.TOKEN_EMPTY);
+            throw new JwtException(ExceptionCode.TOKEN_EMPTY);
         }
     }
 
@@ -111,7 +107,7 @@ public class JwtUtil {
         if (StringUtils.hasText(token) && token.startsWith(BEARER)) {
             return token.substring(BEARER.length());
         } else {
-            throw new JwtException("Not Found Token");
+            throw new JwtException(ExceptionCode.NOT_FOUND_TOKEN);
         }
     }
 

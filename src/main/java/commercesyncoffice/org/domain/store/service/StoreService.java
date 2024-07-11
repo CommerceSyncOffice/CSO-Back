@@ -1,8 +1,8 @@
 package commercesyncoffice.org.domain.store.service;
 
-import commercesyncoffice.org.domain.store.Store;
-import commercesyncoffice.org.domain.store.dto.StoreCreateDto;
-import commercesyncoffice.org.domain.store.dto.StoreListDto;
+import commercesyncoffice.org.domain.store.model.Store;
+import commercesyncoffice.org.domain.store.dto.request.StoreCreateDto;
+import commercesyncoffice.org.domain.store.dto.response.StoreListDto;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -1,12 +1,12 @@
 package commercesyncoffice.org.domain.stockrequest.service;
 
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
-import commercesyncoffice.org.domain.stockrequest.StockRequest;
+import commercesyncoffice.org.domain.stockrequest.model.StockRequest;
 import commercesyncoffice.org.domain.stockrequest.dto.StockRequestCreateDto;
 import commercesyncoffice.org.domain.stockrequest.repository.StockRequestRepository;
-import commercesyncoffice.org.domain.store.Store;
+import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +31,6 @@ public class StockRequestServiceImplV1 implements StockRequestService {
         Item item = itemService.getItemWithBrandByItemId(stockRequestCreateDto.itemId());
         brandService.validateBrand(userDetails, item.getBrandId());
 
-        stockRequestRepository.save(StockRequest.createStockRequest(stockRequestCreateDto, store, item));
+        stockRequestRepository.save(StockRequest.of(stockRequestCreateDto, store, item));
     }
 }

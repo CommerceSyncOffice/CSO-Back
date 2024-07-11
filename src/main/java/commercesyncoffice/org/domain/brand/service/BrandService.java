@@ -1,8 +1,8 @@
 package commercesyncoffice.org.domain.brand.service;
 
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
-import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
+import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.dto.request.BrandCreateDto;
+import commercesyncoffice.org.domain.brand.dto.response.GetBrandListDto;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 

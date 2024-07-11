@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.stockreceive.service;
 
-import commercesyncoffice.org.domain.stockreceive.dto.StockReceiveCreateDto;
+import commercesyncoffice.org.domain.stockreceive.dto.request.StockReceiveCreateDto;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface StockReceiveService {

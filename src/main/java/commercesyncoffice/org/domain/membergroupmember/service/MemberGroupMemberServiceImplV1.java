@@ -1,13 +1,13 @@
 package commercesyncoffice.org.domain.membergroupmember.service;
 
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.member.Member;
+import commercesyncoffice.org.domain.member.model.Member;
 import commercesyncoffice.org.domain.member.service.MemberService;
-import commercesyncoffice.org.domain.membergroup.MemberGroup;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
 import commercesyncoffice.org.domain.membergroup.service.MemberGroupService;
-import commercesyncoffice.org.domain.membergroupmember.MemberGroupMember;
-import commercesyncoffice.org.domain.membergroupmember.dto.MemberGroupMemberRegisterReqDto;
-import commercesyncoffice.org.domain.membergroupmember.dto.MemberGroupMemberRegisterResDto;
+import commercesyncoffice.org.domain.membergroupmember.dto.request.MemberGroupMemberRegisterReqDto;
+import commercesyncoffice.org.domain.membergroupmember.dto.response.MemberGroupMemberRegisterResDto;
+import commercesyncoffice.org.domain.membergroupmember.model.MemberGroupMember;
 import commercesyncoffice.org.domain.membergroupmember.repository.MemberGroupMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,8 +31,7 @@ public class MemberGroupMemberServiceImplV1 implements MemberGroupMemberService 
         Member member = memberService.getMemberByMemberId(registerDto.memberId());
         MemberGroup memberGroup = memberGroupService.getMemberGroupByMemberGroupId(registerDto.memberGroupId());
 
-        MemberGroupMember saved = memberGroupMemberRepository.save(
-                MemberGroupMember.createMemberGroupMember(member, memberGroup));
+        MemberGroupMember saved = memberGroupMemberRepository.save(MemberGroupMember.of(member, memberGroup));
 
         return new MemberGroupMemberRegisterResDto(saved.getId(), memberGroup.getId(), member.getId());
     }

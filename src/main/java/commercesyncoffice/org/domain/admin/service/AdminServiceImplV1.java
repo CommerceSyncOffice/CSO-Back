@@ -1,12 +1,12 @@
 package commercesyncoffice.org.domain.admin.service;
 
 import commercesyncoffice.org.domain.account.AccountDto;
-import commercesyncoffice.org.domain.admin.Admin;
-import commercesyncoffice.org.domain.admin.dto.AdminLoginDto;
-import commercesyncoffice.org.domain.admin.dto.AdminSignUpDto;
+import commercesyncoffice.org.domain.admin.model.Admin;
+import commercesyncoffice.org.domain.admin.dto.request.AdminLoginDto;
+import commercesyncoffice.org.domain.admin.dto.request.AdminSignUpDto;
+import commercesyncoffice.org.domain.admin.exception.AdminException;
+import commercesyncoffice.org.domain.admin.message.ExceptionCode;
 import commercesyncoffice.org.domain.admin.repository.AdminRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +28,11 @@ public class AdminServiceImplV1 implements AdminService {
     public void signup(AdminSignUpDto adminSignUpDto) {
 
         if (adminRepository.existsByUsername(adminSignUpDto.username())) {
-            throw new CustomException(ExceptionCode.SAME_USERNAME_IN_ADMIN);
+            throw new AdminException(ExceptionCode.SAME_USERNAME_IN_ADMIN);
         }
 
         if (adminRepository.existsByEmail(adminSignUpDto.email())) {
-            throw new CustomException(ExceptionCode.SAME_EMAIL_IN_ADMIN);
+            throw new AdminException(ExceptionCode.SAME_EMAIL_IN_ADMIN);
         }
 
         String encodedPassword = passwordEncoder.encode(adminSignUpDto.password());
@@ -46,11 +46,11 @@ public class AdminServiceImplV1 implements AdminService {
     public String login(AdminLoginDto adminLoginDto) {
 
         Admin admin = adminRepository.findByUsername(adminLoginDto.username()).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_USERNAME_IN_ADMIN)
+                () -> new AdminException(ExceptionCode.NOT_FOUND_USERNAME_IN_ADMIN)
         );
 
         if (!passwordEncoder.matches(adminLoginDto.password(), admin.getPassword())) {
-            throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD_WITH_USERNAME_IN_ADMIN);
+            throw new AdminException(ExceptionCode.NOT_MATCH_PASSWORD_WITH_USERNAME_IN_ADMIN);
         }
 
         AccountDto accountDto = new AccountDto(admin.getUsername(), JwtUtil.ADMIN);
@@ -61,14 +61,14 @@ public class AdminServiceImplV1 implements AdminService {
     @Override
     public Admin getAdminById(Long adminId) {
         return adminRepository.findById(adminId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_ADMIN)
+                () -> new AdminException(ExceptionCode.NOT_FOUND_ADMIN)
         );
     }
 
     @Override
     public Admin getAdminByUsername(String username) {
         return adminRepository.findByUsername(username).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_ADMIN)
+                () -> new AdminException(ExceptionCode.NOT_FOUND_ADMIN)
         );
     }
 }

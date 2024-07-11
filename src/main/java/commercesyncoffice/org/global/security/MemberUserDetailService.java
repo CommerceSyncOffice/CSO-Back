@@ -1,9 +1,9 @@
 package commercesyncoffice.org.global.security;
 
-import commercesyncoffice.org.domain.member.Member;
+import commercesyncoffice.org.domain.member.exception.MemberException;
+import commercesyncoffice.org.domain.member.message.ExceptionCode;
+import commercesyncoffice.org.domain.member.model.Member;
 import commercesyncoffice.org.domain.member.repository.MemberRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +28,7 @@ public class MemberUserDetailService implements UserDetailsService {
         Long brandId = Long.valueOf(parts[0]);
 
         Member member = memberRepository.findByUsernameAndBrandId(username, brandId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+                () -> new MemberException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
         List<String> roles = memberRepository.findMemberRolesByUsernameAndBrandId(username,

@@ -1,9 +1,12 @@
 package commercesyncoffice.org.global.exception;
 
-import java.util.List;
-import org.springframework.http.HttpStatus;
+import commercesyncoffice.org.domain.admin.exception.AdminException;
+import commercesyncoffice.org.domain.brand.exception.BrandException;
+import commercesyncoffice.org.domain.category.exception.CategoryException;
+import commercesyncoffice.org.domain.item.exception.ItemException;
+import commercesyncoffice.org.domain.itemserial.exception.ItemSerialException;
+import commercesyncoffice.org.global.response.ExceptionResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,12 +14,44 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ExceptionResponse> handleCustomException(CustomException e) {
+    @ExceptionHandler(AdminException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(AdminException e) {
 
-        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getExceptionCode());
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
 
-        return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(BrandException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(BrandException e) {
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
+
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(CategoryException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(CategoryException e) {
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
+
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ItemException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(ItemException e) {
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
+
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ItemSerialException.class)
+    public ResponseEntity<ExceptionResponse> handleCustomException(ItemSerialException e) {
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getMessage());
+
+        return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -24,8 +59,8 @@ public class GlobalExceptionHandler {
 
         String defaultMessage = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
 
-        ExceptionResponse exceptionResponse = new ExceptionResponse((HttpStatus) e.getStatusCode(), defaultMessage);
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(defaultMessage);
 
-        return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
+        return ResponseEntity.status(e.getStatusCode()).body(exceptionResponse);
     }
 }

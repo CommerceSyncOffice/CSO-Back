@@ -1,9 +1,9 @@
 package commercesyncoffice.org.domain.memberrole.service;
 
-import commercesyncoffice.org.domain.memberrole.MemberRole;
+import commercesyncoffice.org.domain.memberrole.exception.MemberRoleException;
+import commercesyncoffice.org.domain.memberrole.message.ExceptionCode;
+import commercesyncoffice.org.domain.memberrole.model.MemberRole;
 import commercesyncoffice.org.domain.memberrole.repository.MemberRoleRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class MemberRoleServiceImplV1 implements MemberRoleService {
     public MemberRole getMemberRoleByMemberRoleId(Long memberRoleId) {
 
         return memberRoleRepository.findById(memberRoleId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER_ROLE)
+                () -> new MemberRoleException(ExceptionCode.NOT_FOUND_MEMBER_ROLE)
         );
     }
 }

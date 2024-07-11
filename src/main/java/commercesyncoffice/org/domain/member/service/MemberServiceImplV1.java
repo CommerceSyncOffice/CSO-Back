@@ -1,17 +1,17 @@
 package commercesyncoffice.org.domain.member.service;
 
 import commercesyncoffice.org.domain.account.AccountDto;
-import commercesyncoffice.org.domain.brand.Brand;
+import commercesyncoffice.org.domain.brand.model.Brand;
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.member.Member;
-import commercesyncoffice.org.domain.member.dto.MemberLoginDto;
-import commercesyncoffice.org.domain.member.dto.MemberPasswordChangeDto;
-import commercesyncoffice.org.domain.member.dto.MemberSignUpDto;
-import commercesyncoffice.org.domain.member.dto.MemberSignUpResponseDto;
+import commercesyncoffice.org.domain.member.exception.MemberException;
+import commercesyncoffice.org.domain.member.message.ExceptionCode;
+import commercesyncoffice.org.domain.member.model.Member;
+import commercesyncoffice.org.domain.member.dto.request.MemberLoginDto;
+import commercesyncoffice.org.domain.member.dto.request.MemberPasswordChangeDto;
+import commercesyncoffice.org.domain.member.dto.request.MemberSignUpDto;
+import commercesyncoffice.org.domain.member.dto.response.MemberSignUpResponseDto;
 import commercesyncoffice.org.domain.member.event.MemberSignUpEvent;
 import commercesyncoffice.org.domain.member.repository.MemberRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -40,12 +40,10 @@ public class MemberServiceImplV1 implements MemberService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        if (!brandService.existsByIdAndAdminUsername(brandId, userDetails.getUsername())) {
-            throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
-        }
+        brandService.validateBrand(userDetails, brandId);
 
         if (memberRepository.existsByUsername(brandId + "_" + memberSignUpDto.username())) {
-            throw new CustomException(ExceptionCode.SAME_USERNAME_IN_MEMBER);
+            throw new MemberException(ExceptionCode.SAME_USERNAME_IN_MEMBER);
         }
 
         Member member = Member.createMember(memberSignUpDto, brand);
@@ -65,7 +63,7 @@ public class MemberServiceImplV1 implements MemberService {
         String username = brandId + "_" + memberLoginDto.username();
 
         Member member = memberRepository.findByUsernameAndBrandId(username, brandId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+                () -> new MemberException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
         checkPassword(memberLoginDto.password(), member);
@@ -81,7 +79,7 @@ public class MemberServiceImplV1 implements MemberService {
             UserDetailsImpl userDetails) {
 
         Member member = memberRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+                () -> new MemberException(ExceptionCode.NOT_FOUND_MEMBER)
         );
 
         checkPassword(memberPasswordChangeDto.oldPassword(), member);
@@ -93,11 +91,11 @@ public class MemberServiceImplV1 implements MemberService {
 
         if (member.isRandomPassword()) {
             if (!passwordInput.equals(member.getPassword())) {
-                throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
+                throw new MemberException(ExceptionCode.NOT_MATCH_PASSWORD);
             }
         } else {
             if (!passwordEncoder.matches(passwordInput, member.getPassword())) {
-                throw new CustomException(ExceptionCode.NOT_MATCH_PASSWORD);
+                throw new MemberException(ExceptionCode.NOT_MATCH_PASSWORD);
             }
         }
     }
@@ -114,7 +112,7 @@ public class MemberServiceImplV1 implements MemberService {
     public Member getMemberByMemberId(Long memberId) {
 
         return memberRepository.findById(memberId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_MEMBER)
+                () -> new MemberException(ExceptionCode.NOT_FOUND_MEMBER)
         );
     }
 }
