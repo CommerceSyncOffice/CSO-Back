@@ -1,7 +1,7 @@
-package commercesyncoffice.org.domain.brand;
+package commercesyncoffice.org.domain.brand.model;
 
-import commercesyncoffice.org.domain.admin.Admin;
-import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
+import commercesyncoffice.org.domain.admin.model.Admin;
+import commercesyncoffice.org.domain.brand.dto.request.BrandCreateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -51,7 +51,7 @@ public class Brand {
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin;
 
-    public static Brand createBrand(BrandCreateDto brandCreateDto, Admin admin) {
+    public static Brand of(BrandCreateDto brandCreateDto, Admin admin) {
 
         return Brand.builder()
                 .name(brandCreateDto.name())

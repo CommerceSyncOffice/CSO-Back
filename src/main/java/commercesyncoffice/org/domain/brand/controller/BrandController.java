@@ -1,43 +1,48 @@
 package commercesyncoffice.org.domain.brand.controller;
 
-import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
-import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
+import static commercesyncoffice.org.domain.brand.message.SuccessMessage.SUCCESS_CREATE_BRAND;
+import static commercesyncoffice.org.domain.brand.message.SuccessMessage.SUCCESS_GET_BRAND_LIST;
+import static commercesyncoffice.org.global.response.SuccessResponse.success;
+
+import commercesyncoffice.org.domain.brand.dto.request.BrandCreateDto;
 import commercesyncoffice.org.domain.brand.service.BrandService;
+import commercesyncoffice.org.global.response.CommonResponse;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class BrandController {
 
     private final BrandService brandService;
 
     @PostMapping("/brand")
-    public String createBrand(
+    public ResponseEntity<? extends CommonResponse> createBrand(
             @RequestBody @Valid BrandCreateDto brandCreateDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
         brandService.createBrand(brandCreateDto, userDetails);
 
-        return "redirect:/brand";
+        return ResponseEntity.status(SUCCESS_CREATE_BRAND.getHttpStatus())
+                             .body(success(SUCCESS_CREATE_BRAND.getMessage()));
     }
 
     @ResponseBody
     @GetMapping("/brand")
-    public ResponseEntity<List<GetBrandListDto>> getBrandList(
+    public ResponseEntity<? extends CommonResponse> getBrandList(
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
 
-        return ResponseEntity.ok().body(brandService.getBrandList(userDetails));
+        return ResponseEntity.status(SUCCESS_GET_BRAND_LIST.getHttpStatus())
+                             .body(success(SUCCESS_GET_BRAND_LIST.getMessage(),brandService.getBrandList(userDetails)));
     }
 }

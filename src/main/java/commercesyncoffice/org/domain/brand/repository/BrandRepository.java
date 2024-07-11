@@ -1,8 +1,8 @@
 package commercesyncoffice.org.domain.brand.repository;
 
-import commercesyncoffice.org.domain.admin.Admin;
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
+import commercesyncoffice.org.domain.admin.model.Admin;
+import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.dto.response.GetBrandListDto;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

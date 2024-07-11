@@ -1,13 +1,13 @@
 package commercesyncoffice.org.domain.brand.service;
 
-import commercesyncoffice.org.domain.admin.Admin;
+import commercesyncoffice.org.domain.admin.model.Admin;
 import commercesyncoffice.org.domain.admin.service.AdminService;
-import commercesyncoffice.org.domain.brand.Brand;
-import commercesyncoffice.org.domain.brand.dto.BrandCreateDto;
-import commercesyncoffice.org.domain.brand.dto.GetBrandListDto;
+import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.dto.request.BrandCreateDto;
+import commercesyncoffice.org.domain.brand.dto.response.GetBrandListDto;
+import commercesyncoffice.org.domain.brand.exception.BrandException;
+import commercesyncoffice.org.domain.brand.message.ExceptionCode;
 import commercesyncoffice.org.domain.brand.repository.BrandRepository;
-import commercesyncoffice.org.global.exception.CustomException;
-import commercesyncoffice.org.global.exception.ExceptionCode;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import java.util.List;
@@ -31,7 +31,7 @@ public class BrandServiceImplV1 implements BrandService {
 
         Admin admin = adminService.getAdminByUsername(userDetails.getUsername());
 
-        brandRepository.save(Brand.createBrand(brandCreateDto, admin));
+        brandRepository.save(Brand.of(brandCreateDto, admin));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class BrandServiceImplV1 implements BrandService {
     public Brand getBrandById(Long brandId) {
 
         return brandRepository.findById(brandId).orElseThrow(
-                () -> new CustomException(ExceptionCode.NOT_FOUND_BRAND)
+                () -> new BrandException(ExceptionCode.NOT_FOUND_BRAND)
         );
     }
 
@@ -55,7 +55,7 @@ public class BrandServiceImplV1 implements BrandService {
     public void checkBrand(Long brandId) {
 
         if (!brandRepository.existsById(brandId)) {
-            throw new CustomException(ExceptionCode.NOT_FOUND_BRAND);
+            throw new BrandException(ExceptionCode.NOT_FOUND_BRAND);
         }
     }
 
@@ -63,24 +63,6 @@ public class BrandServiceImplV1 implements BrandService {
     public boolean existsByIdAndAdminUsername(Long brandId, String username) {
         return brandRepository.existsByIdAndAdminUsername(brandId, username);
     }
-
-//    @Override
-//    public void validateBrand(Member member, Long brandId) {
-//
-//        if (!brandRepository.existsByIdAndMemberUsername(brandId, member.getId())) {
-//            throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
-//        }
-//    }
-//
-//    @Override
-//    public void validateBrand(Admin admin, Long brandId) {
-//
-//        Brand brand = brandRepository.findByIdWithAdmin(brandId);
-//
-//        if (!brand.getAdmin().getId().equals(admin.getId())) {
-//            throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
-//        }
-//    }
 
     //TODO 리팩토링때 밑 두개 오버로딩이나 오버라이딩 중 택 1 리팩
     @Override
@@ -90,12 +72,12 @@ public class BrandServiceImplV1 implements BrandService {
 
             Brand brand = brandRepository.findByIdWithAdmin(brandId);
             if (!brand.getAdmin().getUsername().equals(userDetails.getUsername())) {
-                throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
+                throw new BrandException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
             }
         } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
 
             if (!brandRepository.existsByIdAndMemberUsername(brandId, userDetails.getUsername())) {
-                throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
+                throw new BrandException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
             }
         }
     }
@@ -107,12 +89,12 @@ public class BrandServiceImplV1 implements BrandService {
 
             Brand brand = brandRepository.findByMemberGroupIdWithAdmin(memberGroupId);
             if (!brand.getAdmin().getUsername().equals(userDetails.getUsername())) {
-                throw new CustomException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
+                throw new BrandException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
             }
         } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
 
             if (!brandRepository.existsByMemberGroupIdAndMemberUsername(memberGroupId, userDetails.getUsername())) {
-                throw new CustomException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
+                throw new BrandException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
             }
         }
     }
