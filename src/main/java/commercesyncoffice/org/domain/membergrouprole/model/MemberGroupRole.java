@@ -1,7 +1,7 @@
-package commercesyncoffice.org.domain.membergrouprole;
+package commercesyncoffice.org.domain.membergrouprole.model;
 
 
-import commercesyncoffice.org.domain.membergroup.MemberGroup;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
 import commercesyncoffice.org.domain.memberrole.MemberRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -33,7 +33,7 @@ public class MemberGroupRole {
     @JoinColumn(name = "member_role_id", nullable = false)
     private MemberRole memberRole;
 
-    public static MemberGroupRole createMemberGroupRole(MemberGroup memberGroup, MemberRole memberRole) {
+    public static MemberGroupRole of(MemberGroup memberGroup, MemberRole memberRole) {
 
         return MemberGroupRole.builder()
                               .memberGroup(memberGroup)
