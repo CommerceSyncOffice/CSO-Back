@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.stockreceive.dto;
+package commercesyncoffice.org.domain.stockreceive.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

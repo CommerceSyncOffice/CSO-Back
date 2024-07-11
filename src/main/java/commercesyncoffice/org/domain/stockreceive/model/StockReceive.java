@@ -1,7 +1,7 @@
-package commercesyncoffice.org.domain.stockreceive;
+package commercesyncoffice.org.domain.stockreceive.model;
 
-import commercesyncoffice.org.domain.item.Item;
-import commercesyncoffice.org.domain.stockreceive.dto.StockReceiveCreateDto;
+import commercesyncoffice.org.domain.item.model.Item;
+import commercesyncoffice.org.domain.stockreceive.dto.request.StockReceiveCreateDto;
 import commercesyncoffice.org.domain.store.Store;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

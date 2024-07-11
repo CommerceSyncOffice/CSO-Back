@@ -1,10 +1,10 @@
 package commercesyncoffice.org.domain.stockreceive.service;
 
 import commercesyncoffice.org.domain.brand.service.BrandService;
-import commercesyncoffice.org.domain.item.Item;
+import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
-import commercesyncoffice.org.domain.stockreceive.StockReceive;
-import commercesyncoffice.org.domain.stockreceive.dto.StockReceiveCreateDto;
+import commercesyncoffice.org.domain.stockreceive.model.StockReceive;
+import commercesyncoffice.org.domain.stockreceive.dto.request.StockReceiveCreateDto;
 import commercesyncoffice.org.domain.stockreceive.repository.StockReceiveRepository;
 import commercesyncoffice.org.domain.store.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
