@@ -18,13 +18,6 @@ public interface BrandService {
 
     void checkBrand(Long brandId);
 
-    boolean existsByIdAndAdminUsername(Long brandId, String username);
-
-//    void validateBrand(Member member, Long brandId);
-//
-//    void validateBrand(Admin admin, Long brandId);
-
     void validateBrand(UserDetails userDetails, BrandId brandId);
-
     void validateBrand(UserDetails userDetails, MemberGroupId brandId);
 }

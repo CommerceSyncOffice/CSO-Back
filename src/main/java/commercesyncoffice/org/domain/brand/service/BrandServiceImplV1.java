@@ -62,12 +62,6 @@ public class BrandServiceImplV1 implements BrandService {
     }
 
     @Override
-    public boolean existsByIdAndAdminUsername(Long brandId, String username) {
-        return brandRepository.existsByIdAndAdminUsername(brandId, username);
-    }
-
-    // TODO 리팩토링때 밑 두개 오버로딩이나 오버라이딩 중 택 1 리팩
-    @Override
     public void validateBrand(UserDetails userDetails, BrandId brandId) {
 
         if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.ADMIN)) {
