@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.store.service;
 
 import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.store.exception.StoreException;
 import commercesyncoffice.org.domain.store.message.ExceptionCode;
@@ -27,7 +28,7 @@ public class StoreServiceImplV1 implements StoreService {
     @Transactional
     public Long createStore(UserDetails userDetails, Long brandId, StoreCreateDto storeCreateDto) {
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
         Brand brand = brandService.getBrandById(brandId);
 
         return storeRepository.save(Store.of(brand, storeCreateDto)).getId();
@@ -37,7 +38,7 @@ public class StoreServiceImplV1 implements StoreService {
     @Transactional(readOnly = true)
     public List<StoreListDto> getStoreList(UserDetails userDetails, Long brandId) {
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
         brandService.checkBrand(brandId);
 
         return storeRepository.findStoreListByBrand(brandId);

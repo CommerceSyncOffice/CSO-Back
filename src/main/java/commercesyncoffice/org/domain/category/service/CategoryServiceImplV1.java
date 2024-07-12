@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.category.service;
 
 import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.category.exception.CategoryException;
 import commercesyncoffice.org.domain.category.message.ExceptionCode;
@@ -29,7 +30,7 @@ public class CategoryServiceImplV1 implements CategoryService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
 
         categoryRepository.save(Category.of(categoryCreateDto, brand)).getId();
     }
@@ -40,7 +41,7 @@ public class CategoryServiceImplV1 implements CategoryService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
 
         return categoryRepository.findCategoryListByBrand(brand.getId());
     }

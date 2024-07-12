@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.membergroup.service;
 
 import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.membergroup.exception.MemberGroupException;
 import commercesyncoffice.org.domain.membergroup.message.ExceptionCode;
@@ -26,7 +27,7 @@ public class MemberGroupServiceImplV1 implements MemberGroupService {
     public MemberGroupResDto createMemberGroup(UserDetailsImpl userDetails, Long brandId,
             MemberGroupCreateDto memberGroupCreateDto) {
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
         Brand brand = brandService.getBrandById(brandId);
 
         MemberGroup savedMemberGroup = memberGroupRepository.save(

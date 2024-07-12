@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.itemserial.service;
 
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
@@ -29,7 +30,7 @@ public class ItemSerialServiceImplV1 implements ItemSerialService {
 
         Item item = itemService.getItemWithBrandByItemId(itemId);
 
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         if (itemSerialRepository.checkSameSerialInItem(itemSerialCreateDto.serial(), item.getId())) {
             throw new ItemSerialException(ExceptionCode.SAME_SERIAL_IN_ITEM);

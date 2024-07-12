@@ -1,6 +1,7 @@
 package commercesyncoffice.org.domain.item.service;
 
 import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.category.model.Category;
 import commercesyncoffice.org.domain.category.service.CategoryService;
@@ -37,7 +38,7 @@ public class ItemServiceImplV1 implements ItemService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
 
         if (itemCreateDto.categoryId() != null) {
             category = categoryService.getCategoryByIdAndBrandId(itemCreateDto.categoryId(),
@@ -55,7 +56,7 @@ public class ItemServiceImplV1 implements ItemService {
     public ItemDetailDto getItem(UserDetails userDetails, Long itemId) {
 
         Item item = getItemWithBrandByItemId(itemId);
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         ItemDetailBeforeMixDto itemDetailBeforeMixDto = itemRepository.findByIdCustom(itemId)
                 .orElseThrow(
@@ -81,7 +82,7 @@ public class ItemServiceImplV1 implements ItemService {
     public void changeItemIsSerial(UserDetails userDetails, Long itemId) {
 
         Item item = getItemWithBrandByItemId(itemId);
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         if (item.getIsSerial() && itemRepository.isHavingSerial(itemId)) {
             throw new ItemException(ExceptionCode.DELETE_SERIAL_THIS_ITEM);
@@ -97,7 +98,7 @@ public class ItemServiceImplV1 implements ItemService {
         Category category = null;
 
         Item item = getItemWithBrandByItemId(itemId);
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         if (itemChangeCategoryDto.categoryId() != null) {
             category = categoryService.getCategoryByIdAndBrandId(itemChangeCategoryDto.categoryId(),

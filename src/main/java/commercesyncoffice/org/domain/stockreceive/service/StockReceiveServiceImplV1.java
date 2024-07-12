@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.stockreceive.service;
 
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
@@ -29,7 +30,7 @@ public class StockReceiveServiceImplV1 implements StockReceiveService{
         Store store = storeService.getStoreById(stockReceiveCreateDto.storeId());
         Item item = itemService.getItemWithBrandByItemId(stockReceiveCreateDto.itemId());
 
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         stockReceiveRepository.save(StockReceive.of(stockReceiveCreateDto, item, store));
     }
