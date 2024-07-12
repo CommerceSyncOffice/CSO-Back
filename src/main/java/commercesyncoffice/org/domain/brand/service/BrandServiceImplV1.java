@@ -7,7 +7,9 @@ import commercesyncoffice.org.domain.brand.dto.request.BrandCreateDto;
 import commercesyncoffice.org.domain.brand.dto.response.GetBrandListDto;
 import commercesyncoffice.org.domain.brand.exception.BrandException;
 import commercesyncoffice.org.domain.brand.message.ExceptionCode;
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.repository.BrandRepository;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroupId;
 import commercesyncoffice.org.global.jwt.JwtUtil;
 import commercesyncoffice.org.global.security.UserDetailsImpl;
 import java.util.List;
@@ -64,36 +66,36 @@ public class BrandServiceImplV1 implements BrandService {
         return brandRepository.existsByIdAndAdminUsername(brandId, username);
     }
 
-    //TODO 리팩토링때 밑 두개 오버로딩이나 오버라이딩 중 택 1 리팩
+    // TODO 리팩토링때 밑 두개 오버로딩이나 오버라이딩 중 택 1 리팩
     @Override
-    public void validateBrand(UserDetails userDetails, Long brandId) {
+    public void validateBrand(UserDetails userDetails, BrandId brandId) {
 
         if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.ADMIN)) {
 
-            Brand brand = brandRepository.findByIdWithAdmin(brandId);
+            Brand brand = brandRepository.findByIdWithAdmin(brandId.id());
             if (!brand.getAdmin().getUsername().equals(userDetails.getUsername())) {
                 throw new BrandException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
             }
         } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
 
-            if (!brandRepository.existsByIdAndMemberUsername(brandId, userDetails.getUsername())) {
+            if (!brandRepository.existsByIdAndMemberUsername(brandId.id(), userDetails.getUsername())) {
                 throw new BrandException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
             }
         }
     }
 
     @Override
-    public void validateBrandByMemberGroupId(UserDetails userDetails, Long memberGroupId) {
+    public void validateBrand(UserDetails userDetails, MemberGroupId memberGroupId) {
 
         if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.ADMIN)) {
 
-            Brand brand = brandRepository.findByMemberGroupIdWithAdmin(memberGroupId);
+            Brand brand = brandRepository.findByMemberGroupIdWithAdmin(memberGroupId.id());
             if (!brand.getAdmin().getUsername().equals(userDetails.getUsername())) {
                 throw new BrandException(ExceptionCode.YOUR_NOT_ADMIN_THIS_BRAND);
             }
         } else if (((UserDetailsImpl) userDetails).getRole().equals(JwtUtil.MEMBER)) {
 
-            if (!brandRepository.existsByMemberGroupIdAndMemberUsername(memberGroupId, userDetails.getUsername())) {
+            if (!brandRepository.existsByMemberGroupIdAndMemberUsername(memberGroupId.id(), userDetails.getUsername())) {
                 throw new BrandException(ExceptionCode.YOUR_NOT_MEMBER_THIS_BRAND);
             }
         }

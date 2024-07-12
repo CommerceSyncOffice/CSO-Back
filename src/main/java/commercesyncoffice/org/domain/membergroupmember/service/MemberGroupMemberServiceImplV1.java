@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.membergroupmember.service;
 
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.member.model.Member;
 import commercesyncoffice.org.domain.member.service.MemberService;
@@ -27,7 +28,7 @@ public class MemberGroupMemberServiceImplV1 implements MemberGroupMemberService 
     @Transactional
     public MemberGroupMemberRegisterResDto registerMember(UserDetails userDetails, Long brandId, MemberGroupMemberRegisterReqDto registerDto) {
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
         Member member = memberService.getMemberByMemberId(registerDto.memberId());
         MemberGroup memberGroup = memberGroupService.getMemberGroupByMemberGroupId(registerDto.memberGroupId());
 

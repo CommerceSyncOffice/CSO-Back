@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.stockrequest.service;
 
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
@@ -29,7 +30,7 @@ public class StockRequestServiceImplV1 implements StockRequestService {
 
         Store store = storeService.getStoreById(storeId);
         Item item = itemService.getItemWithBrandByItemId(stockRequestCreateDto.itemId());
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         stockRequestRepository.save(StockRequest.of(stockRequestCreateDto, store, item));
     }

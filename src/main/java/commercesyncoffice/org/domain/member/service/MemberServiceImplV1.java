@@ -2,6 +2,7 @@ package commercesyncoffice.org.domain.member.service;
 
 import commercesyncoffice.org.domain.account.AccountDto;
 import commercesyncoffice.org.domain.brand.model.Brand;
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.member.exception.MemberException;
 import commercesyncoffice.org.domain.member.message.ExceptionCode;
@@ -40,7 +41,7 @@ public class MemberServiceImplV1 implements MemberService {
 
         Brand brand = brandService.getBrandById(brandId);
 
-        brandService.validateBrand(userDetails, brandId);
+        brandService.validateBrand(userDetails, BrandId.from(brandId));
 
         if (memberRepository.existsByUsername(brandId + "_" + memberSignUpDto.username())) {
             throw new MemberException(ExceptionCode.SAME_USERNAME_IN_MEMBER);

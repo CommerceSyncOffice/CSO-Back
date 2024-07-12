@@ -1,5 +1,6 @@
 package commercesyncoffice.org.domain.storeitem.service;
 
+import commercesyncoffice.org.domain.brand.model.BrandId;
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
@@ -34,7 +35,7 @@ public class StoreItemServiceImplV1 implements StoreItemService {
 
         Store store = storeService.getStoreById(storeId);
         Item item = itemService.getItemWithBrandByItemId(storeItemCreateDto.itemId());
-        brandService.validateBrand(userDetails, item.getBrandId());
+        brandService.validateBrand(userDetails, BrandId.from(item.getBrandId()));
 
         if (storeItemRepository.existsByItemIdAndStoreId(item.getId(), store.getId())) {
             throw new StoreItemException(ExceptionCode.ALREADY_REGISTERED_ITEM);

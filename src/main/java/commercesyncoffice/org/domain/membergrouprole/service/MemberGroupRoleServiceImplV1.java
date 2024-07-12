@@ -2,6 +2,7 @@ package commercesyncoffice.org.domain.membergrouprole.service;
 
 import commercesyncoffice.org.domain.brand.service.BrandService;
 import commercesyncoffice.org.domain.membergroup.model.MemberGroup;
+import commercesyncoffice.org.domain.membergroup.model.MemberGroupId;
 import commercesyncoffice.org.domain.membergroup.service.MemberGroupService;
 import commercesyncoffice.org.domain.membergrouprole.model.MemberGroupRole;
 import commercesyncoffice.org.domain.membergrouprole.dto.request.MemberGroupRoleEditReqDto;
@@ -34,7 +35,7 @@ public class MemberGroupRoleServiceImplV1 implements MemberGroupRoleService {
     ) {
 
         MemberGroup memberGroup = memberGroupService.getMemberGroupByMemberGroupId(memberGroupId);
-        brandService.validateBrandByMemberGroupId(userDetails, memberGroupId);
+        brandService.validateBrand(userDetails, MemberGroupId.from(memberGroupId));
         memberGroupRoleRepository.deleteAllByMemberGroupId(memberGroupId);
 
         for (Long memberRoleId : memberGroupRoleEditReqDto.memberRoleId()) {
