@@ -37,7 +37,7 @@ public class MemberGroup {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    public static MemberGroup createMemberGroup(MemberGroupCreateDto memberGroupCreateDto, Brand brand) {
+    public static MemberGroup of(MemberGroupCreateDto memberGroupCreateDto, Brand brand) {
 
         return MemberGroup.builder()
                           .name(memberGroupCreateDto.name())

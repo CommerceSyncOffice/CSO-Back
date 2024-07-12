@@ -62,9 +62,9 @@ public class Category {
     public static Category of(CategoryCreateDto categoryCreateDto, Brand brand) {
 
         return Category.builder()
-                .name(categoryCreateDto.name())
-                .description(categoryCreateDto.description())
-                .brand(brand)
-                .build();
+                       .name(categoryCreateDto.name())
+                       .description(categoryCreateDto.description())
+                       .brand(brand)
+                       .build();
     }
 }

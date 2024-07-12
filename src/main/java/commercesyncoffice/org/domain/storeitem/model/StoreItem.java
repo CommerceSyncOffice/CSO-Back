@@ -1,4 +1,4 @@
-package commercesyncoffice.org.domain.storeitem;
+package commercesyncoffice.org.domain.storeitem.model;
 
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.store.model.Store;

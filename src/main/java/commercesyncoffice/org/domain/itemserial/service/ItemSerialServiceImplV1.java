@@ -35,6 +35,6 @@ public class ItemSerialServiceImplV1 implements ItemSerialService {
             throw new ItemSerialException(ExceptionCode.SAME_SERIAL_IN_ITEM);
         }
 
-        itemSerialRepository.save(ItemSerial.createItemSerial(itemSerialCreateDto, item));
+        itemSerialRepository.save(ItemSerial.of(itemSerialCreateDto, item));
     }
 }

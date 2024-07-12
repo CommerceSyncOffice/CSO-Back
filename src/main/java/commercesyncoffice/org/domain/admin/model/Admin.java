@@ -49,7 +49,7 @@ public class Admin {
     @Column
     private LocalDateTime modifiedAt;
 
-    public static Admin signup(AdminSignUpDto adminSignUpDto, String encodedPassword) {
+    public static Admin of(AdminSignUpDto adminSignUpDto, String encodedPassword) {
 
         return Admin.builder()
                     .username(adminSignUpDto.username())

@@ -3,7 +3,7 @@ package commercesyncoffice.org.domain.itemserial.model;
 import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.itemserial.dto.request.ItemSerialCreateDto;
 import commercesyncoffice.org.domain.stockreceive.model.StockReceive;
-import commercesyncoffice.org.domain.storeitem.StoreItem;
+import commercesyncoffice.org.domain.storeitem.model.StoreItem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,7 +42,7 @@ public class ItemSerial {
     @JoinColumn(name = "stock_receive_id")
     private StockReceive stockReceive;
 
-    public static ItemSerial createItemSerial(
+    public static ItemSerial of(
             ItemSerialCreateDto itemSerialCreateDto,
             Item item
     ) {
