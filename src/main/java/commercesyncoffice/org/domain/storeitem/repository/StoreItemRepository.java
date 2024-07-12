@@ -1,6 +1,6 @@
 package commercesyncoffice.org.domain.storeitem.repository;
 
-import commercesyncoffice.org.domain.storeitem.StoreItem;
+import commercesyncoffice.org.domain.storeitem.model.StoreItem;
 import jakarta.persistence.LockModeType;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

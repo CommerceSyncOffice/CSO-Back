@@ -30,7 +30,7 @@ public class MemberGroupServiceImplV1 implements MemberGroupService {
         Brand brand = brandService.getBrandById(brandId);
 
         MemberGroup savedMemberGroup = memberGroupRepository.save(
-                MemberGroup.createMemberGroup(memberGroupCreateDto, brand));
+                MemberGroup.of(memberGroupCreateDto, brand));
 
         return new MemberGroupResDto(savedMemberGroup.getId(), savedMemberGroup.getName(), savedMemberGroup.getDescription());
     }

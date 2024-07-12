@@ -46,7 +46,7 @@ public class StockReceive {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    public static StockReceive createStockReceive(
+    public static StockReceive of(
             StockReceiveCreateDto stockReceiveCreateDto,
             Item item,
             Store store

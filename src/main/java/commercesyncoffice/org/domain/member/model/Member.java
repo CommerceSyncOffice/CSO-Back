@@ -61,7 +61,7 @@ public class Member {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    public static Member createMember(MemberSignUpDto memberSignUpDto, Brand brand) {
+    public static Member of(MemberSignUpDto memberSignUpDto, Brand brand) {
         UUID uuid = UUID.randomUUID();
 
         return Member.builder()

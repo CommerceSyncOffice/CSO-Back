@@ -31,6 +31,6 @@ public class StockReceiveServiceImplV1 implements StockReceiveService{
 
         brandService.validateBrand(userDetails, item.getBrandId());
 
-        stockReceiveRepository.save(StockReceive.createStockReceive(stockReceiveCreateDto, item, store));
+        stockReceiveRepository.save(StockReceive.of(stockReceiveCreateDto, item, store));
     }
 }
