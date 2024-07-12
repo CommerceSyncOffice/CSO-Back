@@ -1,15 +1,17 @@
 package commercesyncoffice.org.global.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import commercesyncoffice.org.global.response.ExceptionResponse;
 import commercesyncoffice.org.global.security.AdminUserDetailService;
 import commercesyncoffice.org.global.security.MemberUserDetailService;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -32,16 +34,22 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String token = jwtUtil.getTokenFromRequest(request);
 
         if (StringUtils.hasText(token)) {
-            token = jwtUtil.substringToken(token);
 
-            if (!jwtUtil.validateToken(token)) {
-                throw new JwtException("Token Validate Error");
+            try {
+                token = jwtUtil.substringToken(token);
+
+                if (!jwtUtil.validateToken(token)) {
+                    throw new JwtException(ExceptionCode.TOKEN_CANT_VALIDATE);
+                }
+
+                Claims claims = jwtUtil.getUserInfoFromToken(token);
+                String username = String.valueOf(claims.get(JwtUtil.USERNAME));
+
+                setAuthentication(username, claims);
+            } catch (JwtException e) {
+                handleJwtException(e, response);
+                return;
             }
-
-            Claims claims = jwtUtil.getUserInfoFromToken(token);
-            String username = String.valueOf(claims.get(JwtUtil.USERNAME));
-
-            setAuthentication(username, claims);
         }
 
         filterChain.doFilter(request, response);
@@ -76,5 +84,16 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
+    }
+
+    public void handleJwtException(JwtException e, HttpServletResponse response) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        ExceptionResponse exceptionResponse = ExceptionResponse.of(e.getLocalizedMessage());
+
+        response.setStatus(e.getHttpStatus().value());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        response.getWriter().write(mapper.writeValueAsString(exceptionResponse));
+        response.getWriter().flush();
     }
 }

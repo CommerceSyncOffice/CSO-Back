@@ -13,7 +13,8 @@ public enum ExceptionCode {
     TOKEN_UNSUPPORTED(HttpStatus.FORBIDDEN, "지원되지 않는 토큰입니다."),
     TOKEN_EMPTY(HttpStatus.FORBIDDEN, "잘못된 토큰입니다."),
     URL_ENCODING_EXCEPTION(HttpStatus.BAD_REQUEST, "토큰 인코딩 실패"),
-    NOT_FOUND_TOKEN(HttpStatus.NOT_FOUND, "해당 토큰은 존재하지 않습니다.");
+    NOT_FOUND_TOKEN(HttpStatus.NOT_FOUND, "해당 토큰은 존재하지 않습니다."),
+    TOKEN_CANT_VALIDATE(HttpStatus.FORBIDDEN, "토큰 검증 오류");
 
     private final HttpStatus httpStatus;
     private final String message;
