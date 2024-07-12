@@ -31,7 +31,7 @@ public class AdminController {
 
         adminService.signup(adminSignUpDto);
 
-        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus()).body(success(SUCCESS_LOGIN.getMessage()));
+        return ResponseEntity.status(SUCCESS_SIGN_UP.getHttpStatus()).body(success(SUCCESS_SIGN_UP.getMessage()));
     }
 
     @PostMapping("/admin/login")
@@ -43,6 +43,6 @@ public class AdminController {
         String JWTToken = adminService.login(adminLoginDto);
         jwtUtil.addJWTToCookie(JWTToken, response);
 
-        return ResponseEntity.status(SUCCESS_SIGN_UP.getHttpStatus()).body(success(SUCCESS_SIGN_UP.getMessage()));
+        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus()).body(success(SUCCESS_LOGIN.getMessage()));
     }
 }
