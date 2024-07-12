@@ -48,7 +48,7 @@ public class ItemServiceImplV1 implements ItemService {
             throw new ItemException(ExceptionCode.SAME_BARCODE_IN_BRAND);
         }
 
-        return itemRepository.save(Item.createItem(itemCreateDto, category, brand)).getId();
+        return itemRepository.save(Item.of(itemCreateDto, category, brand)).getId();
     }
 
     @Override

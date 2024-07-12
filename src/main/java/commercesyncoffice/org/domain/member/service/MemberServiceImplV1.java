@@ -46,7 +46,7 @@ public class MemberServiceImplV1 implements MemberService {
             throw new MemberException(ExceptionCode.SAME_USERNAME_IN_MEMBER);
         }
 
-        Member member = Member.createMember(memberSignUpDto, brand);
+        Member member = Member.of(memberSignUpDto, brand);
         memberRepository.save(member);
 
         String loginUrl = url + brandId + "/login";

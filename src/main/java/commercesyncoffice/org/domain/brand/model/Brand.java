@@ -54,10 +54,10 @@ public class Brand {
     public static Brand of(BrandCreateDto brandCreateDto, Admin admin) {
 
         return Brand.builder()
-                .name(brandCreateDto.name())
-                .description(brandCreateDto.description())
-                .admin(admin)
-                .build();
+                    .name(brandCreateDto.name())
+                    .description(brandCreateDto.description())
+                    .admin(admin)
+                    .build();
     }
 
 }

@@ -37,7 +37,7 @@ public class AdminServiceImplV1 implements AdminService {
 
         String encodedPassword = passwordEncoder.encode(adminSignUpDto.password());
 
-        Admin admin = Admin.signup(adminSignUpDto, encodedPassword);
+        Admin admin = Admin.of(adminSignUpDto, encodedPassword);
 
         adminRepository.save(admin);
     }

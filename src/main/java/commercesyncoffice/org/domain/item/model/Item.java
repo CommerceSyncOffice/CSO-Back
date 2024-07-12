@@ -87,20 +87,20 @@ public class Item {
         return brand.getId();
     }
 
-    public static Item createItem(ItemCreateDto itemCreateDto, Category category, Brand brand) {
+    public static Item of(ItemCreateDto itemCreateDto, Category category, Brand brand) {
 
         return Item.builder()
-                .name(itemCreateDto.name())
-                .description(itemCreateDto.description())
-                .price(itemCreateDto.price())
-                .barcode(itemCreateDto.barcode())
-                .img(itemCreateDto.img())
-                .isDeleted(false)
-                .originPrice(itemCreateDto.originPrice())
-                .isSerial(itemCreateDto.isSerial())
-                .category(category)
-                .brand(brand)
-                .build();
+                   .name(itemCreateDto.name())
+                   .description(itemCreateDto.description())
+                   .price(itemCreateDto.price())
+                   .barcode(itemCreateDto.barcode())
+                   .img(itemCreateDto.img())
+                   .isDeleted(false)
+                   .originPrice(itemCreateDto.originPrice())
+                   .isSerial(itemCreateDto.isSerial())
+                   .category(category)
+                   .brand(brand)
+                   .build();
     }
 
     public void changeIsSerial() {

@@ -14,7 +14,7 @@ import commercesyncoffice.org.domain.memberrole.model.MemberRoleEnum;
 import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.dto.request.StoreCreateDto;
 import commercesyncoffice.org.domain.store.repository.StoreRepository;
-import commercesyncoffice.org.domain.storeitem.StoreItem;
+import commercesyncoffice.org.domain.storeitem.model.StoreItem;
 import commercesyncoffice.org.domain.storeitem.dto.request.StoreItemCreateDto;
 import commercesyncoffice.org.domain.storeitem.dto.request.StoreItemSaleDto;
 import commercesyncoffice.org.domain.storeitem.repository.StoreItemRepository;
@@ -80,7 +80,7 @@ class StoreItemStockIntegrationTest {
         brandRepository.save(brand);
         Store store = Store.of(brand, new StoreCreateDto("스토어", "주소"));
         storeRepository.save(store);
-        Item item = Item.createItem(
+        Item item = Item.of(
                 new ItemCreateDto("아이템 이름", 5000, 10000, "설명", "이미지 링크", "A1", false, null), null,
                 brand);
         itemRepository.save(item);

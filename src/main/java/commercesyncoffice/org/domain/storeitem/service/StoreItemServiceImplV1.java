@@ -5,7 +5,7 @@ import commercesyncoffice.org.domain.item.model.Item;
 import commercesyncoffice.org.domain.item.service.ItemService;
 import commercesyncoffice.org.domain.store.model.Store;
 import commercesyncoffice.org.domain.store.service.StoreService;
-import commercesyncoffice.org.domain.storeitem.StoreItem;
+import commercesyncoffice.org.domain.storeitem.model.StoreItem;
 import commercesyncoffice.org.domain.storeitem.dto.request.StoreItemCreateDto;
 import commercesyncoffice.org.domain.storeitem.dto.request.StoreItemSaleDto;
 import commercesyncoffice.org.domain.storeitem.exception.StoreItemException;
