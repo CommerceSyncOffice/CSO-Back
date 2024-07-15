@@ -16,7 +16,9 @@ public record AdminSignUpDto(
 
         @NotBlank(message = "이메일을 입력해주세요")
         @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "유효한 이메일 주소를 입력해주세요")
+        @Size(min = 4, max = 60, message = "이메일은 최소 4자 이상 60자 이하여야 합니다.")
         String email,
+
         String profileImg
 ) {
 

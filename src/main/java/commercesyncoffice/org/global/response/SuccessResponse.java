@@ -4,15 +4,22 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.NonNull;
 
 @Builder(access = PRIVATE)
 public record SuccessResponse<T> (
+        @Schema(description = "성공 여부")
         boolean success,
+
+        @Schema(description = "응답 메세지")
         @NonNull
         String message,
-        @JsonInclude(value = NON_NULL) T data
+
+        @Schema(description = "데이터")
+        @JsonInclude(value = NON_NULL)
+        T data
 ) implements CommonResponse {
 
     public static <T> SuccessResponse<T> success(String message, T data) {

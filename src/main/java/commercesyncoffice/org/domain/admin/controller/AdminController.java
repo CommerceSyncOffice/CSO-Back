@@ -2,7 +2,7 @@ package commercesyncoffice.org.domain.admin.controller;
 
 import static commercesyncoffice.org.domain.admin.message.SuccessMessage.SUCCESS_LOGIN;
 import static commercesyncoffice.org.domain.admin.message.SuccessMessage.SUCCESS_SIGN_UP;
-import static commercesyncoffice.org.global.response.SuccessResponse.*;
+import static commercesyncoffice.org.global.response.SuccessResponse.success;
 
 import commercesyncoffice.org.domain.admin.dto.request.AdminLoginDto;
 import commercesyncoffice.org.domain.admin.dto.request.AdminSignUpDto;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminController implements AdminControllerSwagger {
 
     private final AdminService adminService;
     private final JwtUtil jwtUtil;
