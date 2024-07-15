@@ -6,6 +6,7 @@ import commercesyncoffice.org.global.response.CommonResponse;
 import commercesyncoffice.org.global.response.ExceptionResponse;
 import commercesyncoffice.org.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Tag(name = "AdminController", description = "어드민 API")
 public interface AdminControllerSwagger {
@@ -87,7 +88,17 @@ public interface AdminControllerSwagger {
     )
     @PostMapping("/admin/signup")
     ResponseEntity<? extends CommonResponse> signup(
-            @RequestBody @Valid AdminSignUpDto adminSignUpDto
+            @RequestBody(
+                    description = "어드민 회원가입 DTO",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AdminSignUpDto.class),
+                            examples = @ExampleObject(value = "{\"username\": \"username1004\", \"password\": \"password\", \"email\": \"CSOProject@gmail.com\", \"profileImg\": \"https://www.aws.com/s3/cso-project/images/1004.png\"}")
+                    )
+            )
+            @Valid
+            AdminSignUpDto adminSignUpDto
     );
 
     @Operation(summary = "어드민 로그인", description = "어드민 계정 로그인 메서드입니다.")
@@ -113,7 +124,17 @@ public interface AdminControllerSwagger {
     )
     @PostMapping("/admin/login")
     ResponseEntity<? extends CommonResponse> login(
-            @RequestBody @Valid AdminLoginDto adminLoginDto,
+            @RequestBody(
+                    description = "어드민 로그인 DTO",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = AdminLoginDto.class),
+                            examples = @ExampleObject(value = "{\"username\": \"username1004\", \"password\": \"password\"}")
+                    )
+            )
+            @Valid
+            AdminLoginDto adminLoginDto,
             HttpServletResponse response
     );
 }
