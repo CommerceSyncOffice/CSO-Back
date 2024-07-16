@@ -32,7 +32,7 @@ public class CategoryServiceImplV1 implements CategoryService {
 
         brandService.validateBrand(userDetails, BrandId.from(brandId));
 
-        categoryRepository.save(Category.of(categoryCreateDto, brand)).getId();
+        categoryRepository.save(Category.of(categoryCreateDto, brand));
     }
 
     @Override

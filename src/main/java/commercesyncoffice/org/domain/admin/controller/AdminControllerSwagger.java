@@ -6,10 +6,10 @@ import commercesyncoffice.org.global.response.CommonResponse;
 import commercesyncoffice.org.global.response.ExceptionResponse;
 import commercesyncoffice.org.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Tag(name = "AdminController", description = "어드민 API")
 public interface AdminControllerSwagger {

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryController implements CategoryControllerSwagger {
 
     private final CategoryService categoryService;
 
