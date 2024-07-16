@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class BrandController {
+public class BrandController implements BrandControllerSwagger {
 
     private final BrandService brandService;
 
@@ -36,7 +36,6 @@ public class BrandController {
                              .body(success(SUCCESS_CREATE_BRAND.getMessage()));
     }
 
-    @ResponseBody
     @GetMapping("/brand")
     public ResponseEntity<? extends CommonResponse> getBrandList(
             @AuthenticationPrincipal UserDetailsImpl userDetails

@@ -45,9 +45,7 @@ public class AdminServiceImplV1 implements AdminService {
     @Override
     public String login(AdminLoginDto adminLoginDto) {
 
-        Admin admin = adminRepository.findByUsername(adminLoginDto.username()).orElseThrow(
-                () -> new AdminException(ExceptionCode.NOT_FOUND_USERNAME_IN_ADMIN)
-        );
+        Admin admin = getAdminByUsername(adminLoginDto.username());
 
         if (!passwordEncoder.matches(adminLoginDto.password(), admin.getPassword())) {
             throw new AdminException(ExceptionCode.NOT_MATCH_PASSWORD_WITH_USERNAME_IN_ADMIN);

@@ -107,7 +107,7 @@ public interface AdminControllerSwagger {
                     @ApiResponse(
                             responseCode = "200",
                             description = "로그인 성공 시",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponse.class), examples = @ExampleObject(value = "{ \"success\": true, \"message\": \"로그인 성공\"}"))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = SuccessResponse.class), examples = @ExampleObject(value = "{ \"success\": true, \"message\": \"로그인 성공\", \"data\": \"Bearer adsadfwqedszczxcsa\"}"))
                     ),
                     // CheckedException
                     @ApiResponse(

@@ -43,6 +43,6 @@ public class AdminController implements AdminControllerSwagger {
         String JWTToken = adminService.login(adminLoginDto);
         jwtUtil.addJWTToCookie(JWTToken, response);
 
-        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus()).body(success(SUCCESS_LOGIN.getMessage()));
+        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus()).body(success(SUCCESS_LOGIN.getMessage(), JWTToken));
     }
 }
